@@ -1,15 +1,17 @@
-// Création des constantes::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+// Création des constantes:::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
 const allWorks = new Set();
 const allCategories = new Set();
 
-// Fonction "init"::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+// Fonction "init"::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
 async function init() {
+  // Pour récupérer les données des "travaux":
   const works = await getAlldatabaseInfo("works");
   for (const work of works) {
     allWorks.add(work);
   }
+  // Pour récupérer les données des "catégories":
   const categories = await getAlldatabaseInfo("categories");
   for (const category of categories) {
     allCategories.add(category);
@@ -19,7 +21,7 @@ async function init() {
 
 init();
 
-// Fonction pour les base de données:::::::::::::::::::::::::::::::::::::::::::
+// Fonction pour les base de données::::::::::::::::::::::::::::::::::::::::::::::
 
 // Pour récupérer les données selon leur type:
 async function getAlldatabaseInfo(type) {
@@ -30,7 +32,7 @@ async function getAlldatabaseInfo(type) {
     console.log(response);
   }
 }
-// const monTableau = Array.from(allWorks);
+
 // Fonction pour l'affichage des travaux:
 function displayWorks() {
   // Récupération de l'élément du DOM qui accueillera les travaux:
@@ -39,7 +41,6 @@ function displayWorks() {
   allFigures.innerHTML = "";
   // for (let i = 0; i < allWorks.size; i++)
   for (const work of allWorks) {
-    console.log(allWorks);
     // Création d’une balise dédiée chaque travail:
     let figureElement = document.createElement("figure");
     // On crée l’élément img. :
@@ -58,3 +59,25 @@ function displayWorks() {
     figureElement.appendChild(figcaptionElement);
   }
 }
+
+// Ajout des événements au click des boutons de filtre:
+
+// Récupération des boutons :
+
+const buttonObjects = document.querySelector(".buttonObjects");
+const buttonApartments = document.querySelector(".buttonApartments");
+const buttonHotels = document.querySelector(".buttonHotels");
+
+buttonObjects.addEventListener("click", () => {
+  console.log("oui");
+});
+// for (category of allCategories) {
+//   let category = category.filter(object);
+// }
+buttonApartments.addEventListener("click", () => {
+  console.log("ouioui");
+});
+
+buttonHotels.addEventListener("click", () => {
+  console.log("ouiouioui");
+});
