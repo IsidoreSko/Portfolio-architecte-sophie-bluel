@@ -128,8 +128,7 @@ li:hover {
 
 /* Style pour la sectition "filtres" pour filtrer les catégories de travaux: */
 .allFilters {
-	text-align: center;
-	
+	text-align: center;	
 }
 
 
@@ -147,11 +146,10 @@ li:hover {
 }
 #contact {
 	width: 50%;
-margin: auto;
+	margin: auto;
 }
 #contact > * {
 	text-align: center;
-
 }
 #contact h2{
 	margin-bottom: 20px;
