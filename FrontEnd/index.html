@@ -18,10 +18,17 @@
       <h1>Sophie Bluel <span>Architecte d'inteérieur</span></h1>
       <nav>
         <ul>
-          <li>projets</li>
-          <li>contact</li>
-          <li>login</li>
-          <li><img src="./assets/icons/instagram.png" alt="Instagram" /></li>
+          <a href="#"><li>projets</li></a>
+          <a href="#"><li>contact</li></a>
+          <a href="./login.html"><li>login</li></a>
+          <a href="#"
+            ><li>
+              <img
+                class="insta"
+                src="./assets/icons/instagram.png"
+                alt="Instagram"
+              /></li
+          ></a>
         </ul>
       </nav>
     </header>
@@ -36,6 +43,7 @@
             Je raconte votre histoire, je valorise vos idées. Je vous accompagne
             de la conception à la livraison finale du chantier.
           </p>
+          <br />
           <p>
             Chaque projet sera étudié en commun, de façon à mettre en valeur les
             volumes, les matières et les couleurs dans le respect de l’esprit
@@ -43,6 +51,7 @@
             sera assuré dans le souci du détail, le respect du planning et du
             budget.
           </p>
+          <br />
           <p>
             En cas de besoin, une équipe pluridisciplinaire peut-être constituée
             : architecte DPLG, décorateur(trice)
@@ -52,23 +61,7 @@
       <section id="portfolio">
         <h2>Mes Projets</h2>
         <!-- Rajout de la section filtres pour filtrer les catégories de travaux: -->
-        <div class="allFilters">
-          <input class="filter" type="button" value="Tous" />
-          <!-- Catégorie "objets": -->
-          <input class="filter buttonObjects" type="button" value="Objets" />
-          <!-- Catégorie "appartements": -->
-          <input
-            class="filter buttonApartments"
-            type="button"
-            value="Appartements"
-          />
-          <!-- Catégorie "Hotels et Restaurants" -->
-          <input
-            class="filter buttonHotels"
-            type="button"
-            value="Hôtels & Restaurants"
-          />
-        </div>
+        <div class="allFilters"></div>
         <div class="gallery">
           <figure>
             <img src="assets/images/abajour-tahina.png" alt="Abajour Tahina" />
