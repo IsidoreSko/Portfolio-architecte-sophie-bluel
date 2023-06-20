@@ -232,7 +232,7 @@ input[type="submit"]{
 }
 
 /* Effet au survol des boutons filtres: */
-.filter:hover {
+.filter:hover, .active {
 	color: white;
 	background-color: #1D6154;
 }
@@ -243,3 +243,6 @@ footer nav ul {
 	margin: 2em
 }
 
+button{
+	cursor: pointer;
+}
