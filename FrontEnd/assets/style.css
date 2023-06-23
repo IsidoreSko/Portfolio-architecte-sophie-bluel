@@ -256,3 +256,83 @@ button, #passwordForgeted {
 	margin-bottom: 10px;
 }
 
+/* Concernant les éléments qui se rajout en mode édition: */
+
+/* Au sujet de la "topBar": */
+.topBar {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+	gap: 10px;
+	height: 59px;
+	background-color:black ;
+}
+
+/* Pour le bouton "publier les changements" */
+.publish {
+	width: auto;
+	height: 38px;
+	padding-left: 20px;
+	padding-right: 20px;
+	font-size: 14px;
+	font-family: 'Work Sans';
+	font-weight: 500;
+	background-color:white;
+	margin-top : 2em;
+	margin-bottom: 3.5em;
+	text-align: center;
+	border-radius: 60px;
+	margin: 0;
+	border: none;
+	cursor: pointer;
+}
+
+
+/* Pour le texte "Mode édition": */
+.edit {
+	font-family: 'Work Sans';
+	font-weight: 400;
+	font-size: 16px;
+	color: white;
+}
+
+/* Pour l'icône "modifier": */
+.topBar .fa-edit {
+	font-size: 20px;
+	color: white;
+}
+
+/* Au sujet des deux icônes + textes "modifier": */
+
+.changeOne {
+	position: absolute;
+	left: 12%;
+	top: 545px;
+}
+
+.changeTwo {
+	position: absolute;
+	right: 34%;
+	top:590px;
+}
+
+.changeOne, .changeTwo {
+	display: flex;
+	flex-direction: row;
+	gap: 10px;
+}
+
+/* Pour le texte "modifier */
+.editProfil, .editGalery {
+	font-family: "Work Sans";
+	font-weight: 400;
+	font-size: 16px;
+	cursor: pointer;
+}
+
+/* Pour les icône "modifier */
+.changeOne .fa-edit, .changeTwo .fa-edit {
+	font-size: 18px;
+	cursor: pointer;
+}

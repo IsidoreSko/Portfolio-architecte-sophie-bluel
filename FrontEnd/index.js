@@ -65,12 +65,13 @@ async function displayWorks(id = "0") {
   }
 }
 
+const allFilters = document.querySelector(".allFilters");
 // Fonction pour l'affichage des boutons filtres:
 async function displayFiltres() {
   // Récupération de l'élément du DOM qui accueillera les boutons:
-  const allFilters = document.querySelector(".allFilters");
+
   // Et effacer son contenu du fichier HTML:
-  allFilters.innerHTML = "";
+  // allFilters.innerHTML = "";
   // Créaion du bouton "Tous":
   const allBtn = document.createElement("button");
   // Ajout des "class" sur le bouton:
@@ -130,16 +131,58 @@ function createFilterListener() {
     });
   }
 }
+let token = localStorage.getItem("token");
+async function editMode() {
+  if (token) {
+    allFilters.innerHTML = ";";
+    // // Ajout des élémnets sur la page aprés identification:
 
-// Ajout des élémnets sur la page aprés identification::::::::::::::::::::::::::::::::::::::
+    // // Création de la "topBar""fa-light":
 
-// Création de la "topBar""fa-light", "fa-pen-to-squar":
+    const topBar = document.querySelector(".topBar");
 
-// const topBar = document.querySelector(".topBar");
-// const penIcon = document.createElement("i");
-// penIcon.classList.add("fas", "fa-edit");
-// topBar.appendChild(penIcon);
-// const modeEdit = document.createElement("div");
-// modeEdit.classList.add("edit");
-// modeEdit.textContent = "publier les changements";
-// topBar.appendChild(modeEdit);
+    const penIcon = document.createElement("i");
+    penIcon.classList.add("fas", "fa-light", "fa-edit");
+    topBar.appendChild(penIcon);
+
+    const modeEdit = document.createElement("div");
+    modeEdit.classList.add("edit");
+    modeEdit.textContent = "Mode édition";
+    topBar.appendChild(modeEdit);
+
+    const publishButton = document.createElement("button");
+    publishButton.classList.add("publish");
+    publishButton.textContent = "publier les changements";
+    topBar.appendChild(publishButton);
+
+    // Pour les deux icônes + textes "modifier":
+
+    // Au niveau du profile de Sophie Bluel:
+    const changeOne = document.querySelector(".changeOne");
+
+    const changeProfileIcon = document.createElement("i");
+    changeProfileIcon.classList.add("fas", "fa-light", "fa-edit");
+    changeOne.appendChild(changeProfileIcon);
+
+    const changeProfilText = document.createElement("div");
+    changeProfilText.classList.add("editProfil");
+    changeProfilText.textContent = "modifier";
+    changeOne.appendChild(changeProfilText);
+
+    // Au niveau de la galerie:
+    const changeTwo = document.querySelector(".changeTwo");
+
+    const changeGaleryIcon = document.createElement("i");
+    changeGaleryIcon.classList.add("fas", "fa-light", "fa-edit");
+    changeTwo.appendChild(changeGaleryIcon);
+
+    const changeGaleryText = document.createElement("div");
+    changeGaleryText.classList.add("editGalery");
+    changeGaleryText.textContent = "modifier";
+    changeTwo.appendChild(changeGaleryText);
+  } else token = "";
+  {
+  }
+}
+
+editMode();
