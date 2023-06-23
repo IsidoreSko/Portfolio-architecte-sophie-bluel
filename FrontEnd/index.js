@@ -130,3 +130,16 @@ function createFilterListener() {
     });
   }
 }
+
+// Ajout des élémnets sur la page aprés identification::::::::::::::::::::::::::::::::::::::
+
+// Création de la "topBar""fa-light", "fa-pen-to-squar":
+
+// const topBar = document.querySelector(".topBar");
+// const penIcon = document.createElement("i");
+// penIcon.classList.add("fas", "fa-edit");
+// topBar.appendChild(penIcon);
+// const modeEdit = document.createElement("div");
+// modeEdit.classList.add("edit");
+// modeEdit.textContent = "publier les changements";
+// topBar.appendChild(modeEdit);
