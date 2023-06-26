@@ -19,6 +19,7 @@ async function init() {
   }
   displayWorks();
   displayFiltres();
+  editMode();
 }
 
 init();
@@ -65,13 +66,10 @@ async function displayWorks(id = "0") {
   }
 }
 
+// Récupération de l'élément du DOM qui accueillera les boutons:
 const allFilters = document.querySelector(".allFilters");
 // Fonction pour l'affichage des boutons filtres:
 async function displayFiltres() {
-  // Récupération de l'élément du DOM qui accueillera les boutons:
-
-  // Et effacer son contenu du fichier HTML:
-  // allFilters.innerHTML = "";
   // Créaion du bouton "Tous":
   const allBtn = document.createElement("button");
   // Ajout des "class" sur le bouton:
@@ -131,15 +129,21 @@ function createFilterListener() {
     });
   }
 }
-let token = localStorage.getItem("token");
+
 async function editMode() {
+  let token = sessionStorage.getItem("token");
+  const topBar = document.querySelector(".topBar");
+  const loginOrLogout = document.querySelector(".loginOrLogout");
+  const changeOne = document.querySelector(".changeOne");
+  const changeTwo = document.querySelector(".changeTwo");
+
   if (token) {
-    allFilters.innerHTML = ";";
-    // // Ajout des élémnets sur la page aprés identification:
+    // Supression de la barre des filtres:
+    allFilters.style.display = "none";
 
-    // // Création de la "topBar""fa-light":
+    // Ajout des élémnets sur la page aprés identification:::::::::::::::::::::::::::
 
-    const topBar = document.querySelector(".topBar");
+    // Création de la "topBar":
 
     const penIcon = document.createElement("i");
     penIcon.classList.add("fas", "fa-light", "fa-edit");
@@ -155,10 +159,9 @@ async function editMode() {
     publishButton.textContent = "publier les changements";
     topBar.appendChild(publishButton);
 
-    // Pour les deux icônes + textes "modifier":
+    // Pour les deux icônes + textes "modifier"::::::::::
 
-    // Au niveau du profile de Sophie Bluel:
-    const changeOne = document.querySelector(".changeOne");
+    // Au niveau du profile de Sophie Bluel (".changeOne"):
 
     const changeProfileIcon = document.createElement("i");
     changeProfileIcon.classList.add("fas", "fa-light", "fa-edit");
@@ -169,8 +172,7 @@ async function editMode() {
     changeProfilText.textContent = "modifier";
     changeOne.appendChild(changeProfilText);
 
-    // Au niveau de la galerie:
-    const changeTwo = document.querySelector(".changeTwo");
+    // Au niveau de la galerie (".changeTwo"):
 
     const changeGaleryIcon = document.createElement("i");
     changeGaleryIcon.classList.add("fas", "fa-light", "fa-edit");
@@ -180,9 +182,20 @@ async function editMode() {
     changeGaleryText.classList.add("editGalery");
     changeGaleryText.textContent = "modifier";
     changeTwo.appendChild(changeGaleryText);
-  } else token = "";
-  {
+
+    // Changement du lien "Login" en lien "Logout":::::::::::::::::::::::::::::::::::::
+
+    loginOrLogout.innerText = "logout";
+
+    loginOrLogout.addEventListener("click", () => {
+      sessionStorage.removeItem("token");
+      window.location.href = "./login.html";
+    });
+  } else {
+    topBar.style.display = "none";
+    allFilters.style.display = "flex";
+    loginOrLogout.innerText = "login";
+    changeOne.style.display = "none";
+    changeTwo.style.display = "none";
   }
 }
-
-editMode();

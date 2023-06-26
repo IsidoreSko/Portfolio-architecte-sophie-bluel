@@ -24,12 +24,12 @@ form.addEventListener("submit", async (e) => {
   });
   // Si la réponse est positive (status 200):
   if (response.ok) {
-    // Récupération des données:
+    // Récupération des données sous format json:
     const data = await response.json();
     // Récupération du "token" d'authentification:
     // const token = data.token;
     // Stockage du "token" dans le "localStorage":
-    localStorage.setItem("token", data.token);
+    sessionStorage.setItem("token", "data.token");
     // On redirige vers la page d'accueil:
     window.location.href = "./index.html";
   } else {

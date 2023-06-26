@@ -259,6 +259,7 @@ button, #passwordForgeted {
 /* Concernant les éléments qui se rajout en mode édition: */
 
 /* Au sujet de la "topBar": */
+
 .topBar {
 	display: flex;
 	flex-direction: row;
@@ -268,6 +269,8 @@ button, #passwordForgeted {
 	height: 59px;
 	background-color:black ;
 }
+
+
 
 /* Pour le bouton "publier les changements" */
 .publish {
