@@ -180,7 +180,7 @@ li:hover {
 	flex-direction: column;
 }
 
-#contact input, #login input {
+#contact input, #login input, .modalWrapper input {
 	height: 50px;
 	font-size: 1.2em;
 	border: none;
@@ -320,22 +320,129 @@ button, #passwordForgeted {
 	top:590px;
 }
 
-.changeOne, .changeTwo {
+.changeThree {
+	margin-bottom: 30px;
+}
+
+
+.changeOne, .changeTwo, .changeThree {
 	display: flex;
 	flex-direction: row;
 	gap: 10px;
 }
 
 /* Pour le texte "modifier */
-.editProfil, .editGalery {
+.mode {
 	font-family: "Work Sans";
 	font-weight: 400;
 	font-size: 16px;
-	cursor: pointer;
+	text-decoration: none;
+	color: black;
 }
 
 /* Pour les icône "modifier */
 .changeOne .fa-edit, .changeTwo .fa-edit {
 	font-size: 18px;
+}
+
+/* Au sujet de la "modal" :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: */
+
+.modal {
+	position: fixed;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	top:0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: rgba(0,0,0,0.8);
+	z-index: 1;
+}
+
+.modalWrapper {
+	overflow: auto;
+	width: 630px;
+	height: 731px;
+	max-width: calc(100vw - 20px);
+	max-height : calc(100vh - 20px);
+	padding: 20px;
+	background-color: #FFF;
+	border-radius: 10px;
+	margin-top: 100px;
+	
+}
+
+/* Pour le titre de la modal: */
+.titleModal {
+	font-family: "Work Sans";
+	font-weight: 400;
+	font-size: 26px;
+	line-height: 30.5px;
+	color: black;
+	text-align: center;
+	margin-top: 20px;
+}
+
+/* Pour l'icône "croix" de la modal: */
+.modalWrapper .fa-x {
+	position: absolute;
+	right: 29%;
+	/* top: 15px; */
 	cursor: pointer;
+	font-size: medium;
+}
+
+/* Bouton de la modal: */
+.buttonModal {
+	width: 237px;
+	height: 36px;
+	font-family: 'Syne';
+	font-weight: 700;
+	color: white;
+	background-color: #1D6154;
+	margin : 2em auto ;
+	text-align: center;
+	border-radius: 60px;
+	cursor: pointer;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+/*Concernant la phrase "Supprimer la galerie" */
+.modalWrapper p {
+	font-family: 'Syne';
+	font-weight: 400;
+	font-size: 14px;
+	text-align: center;
+	color : #D65353;
+	cursor: pointer;
+	z-index: 1;
+}
+
+/* Au sujet de la galerie de travaux dans la modal: */
+.galleryModal {
+	width: 80%;
+	height: 75%;
+	display: flex;
+	flex-wrap: wrap;
+	gap:10px;
+	margin: 30px;
+	border-bottom :solide 2px #B3B3B3  ;
+	
+	/* align-items: center; */
+	/* justify-content: center; */
+}
+
+/* Concernat les figures de la galerie: */
+.figureModal img{
+	height: 104px;
+	width: 78px;
+
+}
+
+.figure .figcaption {
+	font-size: 12px;
+	font-weight: 400;
 }

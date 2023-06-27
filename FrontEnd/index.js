@@ -20,6 +20,7 @@ async function init() {
   displayWorks();
   displayFiltres();
   editMode();
+  displayWorksModal();
 }
 
 init();
@@ -132,56 +133,15 @@ function createFilterListener() {
 
 async function editMode() {
   let token = sessionStorage.getItem("token");
-  const topBar = document.querySelector(".topBar");
   const loginOrLogout = document.querySelector(".loginOrLogout");
+  const topBar = document.querySelector(".topBar");
   const changeOne = document.querySelector(".changeOne");
   const changeTwo = document.querySelector(".changeTwo");
+  const changeThree = document.querySelector(".changeThree");
 
   if (token) {
     // Supression de la barre des filtres:
     allFilters.style.display = "none";
-
-    // Ajout des élémnets sur la page aprés identification:::::::::::::::::::::::::::
-
-    // Création de la "topBar":
-
-    const penIcon = document.createElement("i");
-    penIcon.classList.add("fas", "fa-light", "fa-edit");
-    topBar.appendChild(penIcon);
-
-    const modeEdit = document.createElement("div");
-    modeEdit.classList.add("edit");
-    modeEdit.textContent = "Mode édition";
-    topBar.appendChild(modeEdit);
-
-    const publishButton = document.createElement("button");
-    publishButton.classList.add("publish");
-    publishButton.textContent = "publier les changements";
-    topBar.appendChild(publishButton);
-
-    // Pour les deux icônes + textes "modifier"::::::::::
-
-    // Au niveau du profile de Sophie Bluel (".changeOne"):
-
-    const changeProfileIcon = document.createElement("i");
-    changeProfileIcon.classList.add("fas", "fa-light", "fa-edit");
-    changeOne.appendChild(changeProfileIcon);
-
-    const changeProfilText = document.createElement("div");
-    changeProfilText.classList.add("editProfil");
-    changeProfilText.textContent = "modifier";
-    changeOne.appendChild(changeProfilText);
-
-    // Au niveau de la galerie (".changeTwo"):
-
-    const changeGaleryIcon = document.createElement("i");
-    changeGaleryIcon.classList.add("fas", "fa-light", "fa-edit");
-    changeTwo.appendChild(changeGaleryIcon);
-
-    const changeGaleryText = document.createElement("div");
-    changeGaleryText.classList.add("editGalery");
-    changeGaleryText.textContent = "modifier";
-    changeTwo.appendChild(changeGaleryText);
 
     // Changement du lien "Login" en lien "Logout":::::::::::::::::::::::::::::::::::::
 
@@ -197,5 +157,72 @@ async function editMode() {
     loginOrLogout.innerText = "login";
     changeOne.style.display = "none";
     changeTwo.style.display = "none";
+    changeThree.style.display = "none";
+  }
+}
+
+// Au sujet de la modal::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+// Pour l'ouverture de la Modal:
+let modal = null;
+const openModal = function (e) {
+  e.preventDefault();
+  const target = document.querySelector(e.target.getAttribute("href"));
+  target.style.display = null;
+  target.removeAttribute("aria-hidden");
+  target.setAttribute("aria-modal", "true");
+  modal = target;
+  modal.addEventListener("click", closeModal);
+};
+
+document.querySelectorAll(".js-modal").forEach((a) => {
+  a.addEventListener("click", openModal);
+});
+
+// Pour la fermeture de la Modal:
+const cross = document.querySelector(".cross");
+const closeModal = function (e) {
+  e.preventDefault();
+  modal.style.display = "none";
+  modal.setAttribute("aria-hidden", "true");
+  modal.removeAttribute("aria-modal");
+  modal.removeEventListener("click", closeModal);
+  modal = null;
+};
+
+// Fermeture en cliquant sur la croix:
+cross.addEventListener("click", closeModal);
+
+// Afficher les travaux dans la modal::::::::::::::::::::::::::::::::::::::::::::::::::
+
+// Fonction pour l'affichage des travaux:
+async function displayWorksModal(id = "0") {
+  // Récupération de l'élément du DOM qui accueillera les travaux:
+  const allFiguresModal = document.querySelector(".galleryModal");
+  // Et effacer son contenu du fichier HTML:
+  allFiguresModal.innerHTML = "";
+  for (const work of allWorks) {
+    if (id == work.categoryId || id == "0") {
+      // Création d’une balise dédiée chaque travail:
+      let figureElement = document.createElement("figure");
+      // Création d'une "class" pour les figures:
+      figureElement.classList.add("figureModal");
+      // On crée l’élément img. :
+      let imageElement = document.createElement("img");
+      // On crée l’élément "figcaption" :
+      let figcaptionElement = document.createElement("figcaption");
+      // Ajout d'un "id" suivant la catégorie:
+      figureElement.setAttribute("id", `${work.categoryId}`);
+      // On accède à l’indice i de la liste des travaux pour configurer la source de l’image.
+      imageElement.src = work.imageUrl;
+      // // Et la balise "figcation":
+      figcaptionElement.innerText = "éditer";
+      // On rattache la balise "figure" à la section "allFigure":
+      allFiguresModal.appendChild(figureElement);
+      // On rattache l’image à l'élément "figure":
+      figureElement.appendChild(imageElement);
+      // On rattache l’image à l'élément "figcation":
+      figureElement.appendChild(figcaptionElement);
+    }
   }
 }

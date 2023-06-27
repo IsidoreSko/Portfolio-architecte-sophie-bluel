@@ -22,7 +22,13 @@
   </head>
   <body>
     <!-- Rajout d'une "div" pour la "topBar" qui apparait en mode édition:-->
-    <div class="topBar"></div>
+    <div class="topBar">
+      <a href="#" class="mode js-modal"
+        ><i class="fas fa-light fa-edit"></i>
+        <span class="edit">Mode édition</span></a
+      >
+      <button class="publish">publier les changements</button>
+    </div>
     <header>
       <h1>Sophie Bluel <span>Architecte d'inteérieur</span></h1>
       <nav>
@@ -43,11 +49,37 @@
       </nav>
     </header>
     <main>
+      <!-- Ajout de la modal: -->
+      <aside
+        id="modal1"
+        class="modal"
+        aria-hidden="true"
+        role="dialog"
+        aria-modal="false"
+        aria-labelledby="titleModal"
+        style="display: none"
+      >
+        <div class="modalWrapper">
+          <span class="cross"><i class="fa-solid fa-x"></i></span>
+          <h2 class="titleModal">Galerie photos</h2>
+          <div class="galleryModal"></div>
+          <button class="buttonModal">Ajouter une photo</button>
+
+          <p>Supprimer la galerie</p>
+        </div>
+      </aside>
+
       <section id="introduction">
         <figure>
           <img src="./assets/images/sophie-bluel.png" alt="" />
         </figure>
         <article>
+          <!-- Rajout d'une "div" pour l'acces à la modification en mode édition:-->
+          <div class="change changeThree">
+            <a href="#" class="mode js-modal"
+              ><i class="fas fa-light fa-edit"></i>modifier</a
+            >
+          </div>
           <h2>Designer d'espace</h2>
           <p>
             Je raconte votre histoire, je valorise vos idées. Je vous accompagne
@@ -68,12 +100,20 @@
           </p>
         </article>
         <!-- Rajout d'une "div" pour l'acces à la modification en mode édition:-->
-        <div class="changeOne"></div>
+        <div class="change changeOne">
+          <a href="#" class="mode js-modal"
+            ><i class="fas fa-light fa-edit"></i>modifier</a
+          >
+        </div>
       </section>
       <section id="portfolio">
         <h2>Mes Projets</h2>
         <!-- Rajout d'une "div" pour l'acces à la modification en mode édition:-->
-        <div class="changeTwo"></div>
+        <div class="change changeTwo">
+          <a href="#modal1" class="mode js-modal"
+            ><i class="fas fa-light fa-edit"></i>modifier</a
+          >
+        </div>
         <!-- Rajout d'une "div" pour filtrer les catégories de travaux: -->
         <div class="allFilters"></div>
         <div class="gallery"></div>
