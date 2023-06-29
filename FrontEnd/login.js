@@ -27,9 +27,9 @@ form.addEventListener("submit", async (e) => {
     // Récupération des données sous format json:
     const data = await response.json();
     // Récupération du "token" d'authentification:
-    // const token = data.token;
+    const token = data.token;
     // Stockage du "token" dans le "localStorage":
-    sessionStorage.setItem("token", "data.token");
+    sessionStorage.setItem("token", token);
     // On redirige vers la page d'accueil:
     window.location.href = "./index.html";
   } else {

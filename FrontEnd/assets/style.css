@@ -358,19 +358,34 @@ button, #passwordForgeted {
 	height: 100%;
 	background: rgba(0,0,0,0.8);
 	z-index: 1;
+	/* Animation à l'ouverture: */
+	animation: appearance 0.5s both;
 }
 
 .modalWrapper {
 	overflow: auto;
 	width: 630px;
-	height: 731px;
+	/* height: 731px; */
 	max-width: calc(100vw - 20px);
 	max-height : calc(100vh - 20px);
-	padding: 20px;
+	padding: 35px auto;
 	background-color: #FFF;
 	border-radius: 10px;
-	margin-top: 100px;
-	
+	margin-top: 50px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	/* Animation à l'ouverture: */
+	animation: presence 1.5s both;	
+}
+
+/* Animation à la fermeture de la modal: */
+.modal[aria-hidden="true"] {	
+	animation-name: appearanceReverse;
+}
+
+.modal[aria-hidden="true"] .modalWrapper{
+	animation-name: presenceReverse;
 }
 
 /* Pour le titre de la modal: */
@@ -386,9 +401,8 @@ button, #passwordForgeted {
 
 /* Pour l'icône "croix" de la modal: */
 .modalWrapper .fa-x {
-	position: absolute;
-	right: 29%;
-	/* top: 15px; */
+	margin-top: 15px;
+	margin-left: 500px;
 	cursor: pointer;
 	font-size: medium;
 }
@@ -401,13 +415,15 @@ button, #passwordForgeted {
 	font-weight: 700;
 	color: white;
 	background-color: #1D6154;
-	margin : 2em auto ;
+	margin : 2.9em auto ;
 	text-align: center;
 	border-radius: 60px;
 	cursor: pointer;
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	padding: 17px;
+	border: none;
 }
 
 /*Concernant la phrase "Supprimer la galerie" */
@@ -419,20 +435,19 @@ button, #passwordForgeted {
 	color : #D65353;
 	cursor: pointer;
 	z-index: 1;
+	margin-bottom: 30px;
 }
 
 /* Au sujet de la galerie de travaux dans la modal: */
 .galleryModal {
 	width: 80%;
-	height: 75%;
+	height: 355px;
 	display: flex;
 	flex-wrap: wrap;
 	gap:10px;
-	margin: 30px;
-	border-bottom :solide 2px #B3B3B3  ;
-	
-	/* align-items: center; */
-	/* justify-content: center; */
+	margin: 30px 30px 0px 30px;
+	padding-bottom: 80px;
+	border-bottom: #B3B3B3 solid 1.5px;
 }
 
 /* Concernat les figures de la galerie: */
@@ -446,3 +461,61 @@ button, #passwordForgeted {
 	font-size: 12px;
 	font-weight: 400;
 }
+
+/* au sujet des icônes "supprimer": */
+.figureModal .fa-trash-can {
+	color: #FFF;
+	background-color: black;
+	width: auto;
+	height: auto;
+	font-size: x-small;
+	padding: 5px;
+	position: relative;
+	bottom: 112px;
+	left: 50px;
+}
+
+/* Pour l'icône "déplacer": */
+ .fa-arrows-up-down-left-right {
+	color: #FFF;
+	background-color: black;
+	width: auto;
+	height: auto;
+	font-size: x-small;
+	padding: 5px;
+	position: relative;
+	bottom: 112px;
+	left: 8px;
+}
+
+/* Ajout d'une animation pour l'apparition de la moal à son ouverture: */
+ 
+@keyframes appearance {
+	from {opacity:0;}
+	to {opacity: 1;}
+  }
+
+  @keyframes presence {
+	0% {
+	  transform: scale(0);
+	}
+	100% {
+	  transform: scale(1);
+	}
+  }
+
+  /* Ajout d'une animation pour la fermeture de la moal à son ouverture: */
+
+  @keyframes appearanceReverse {
+	from {opacity:1;}
+	to {opacity: 0;}
+  }
+
+  @keyframes presenceReverse {
+	0% {
+	  transform: scale(1);
+	}
+	100% {
+	  transform: scale(0);
+	}
+  }

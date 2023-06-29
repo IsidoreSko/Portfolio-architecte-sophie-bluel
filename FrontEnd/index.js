@@ -21,6 +21,7 @@ async function init() {
   displayFiltres();
   editMode();
   displayWorksModal();
+  // deleteWork();
 }
 
 init();
@@ -36,11 +37,11 @@ async function getAlldatabaseInfo(type) {
     console.log(response);
   }
 }
-
-// Fonction pour l'affichage des travaux:
+const allFigures = document.querySelector(".gallery");
+// Fonction pour l'affichage des travaux::::::::::::::::::::::::::::::::::::::::::::::::::::
 async function displayWorks(id = "0") {
   // Récupération de l'élément du DOM qui accueillera les travaux:
-  const allFigures = document.querySelector(".gallery");
+
   // Et effacer son contenu du fichier HTML:
   allFigures.innerHTML = "";
   for (const work of allWorks) {
@@ -66,6 +67,8 @@ async function displayWorks(id = "0") {
     }
   }
 }
+
+// Création des filtres pour sélectionner l'affichage des travaux::::::::::::::::::::::::::::
 
 // Récupération de l'élément du DOM qui accueillera les boutons:
 const allFilters = document.querySelector(".allFilters");
@@ -98,7 +101,8 @@ async function displayFiltres() {
   createFilterListener();
 }
 
-// Fonction pour la réalisation des filtres:
+// Fonction pour le filtrage des travaux::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
 function createFilterListener() {
   // Crétion d'une constante qui récupère tous les boutons:
   const allBtns = document.querySelectorAll(".filter");
@@ -131,8 +135,9 @@ function createFilterListener() {
   }
 }
 
+// Création de l'affichage en mode édition::::::::::::::::::::::::::::::::::::::::::::::::::::
+let token = sessionStorage.getItem("token");
 async function editMode() {
-  let token = sessionStorage.getItem("token");
   const loginOrLogout = document.querySelector(".loginOrLogout");
   const topBar = document.querySelector(".topBar");
   const changeOne = document.querySelector(".changeOne");
@@ -161,7 +166,7 @@ async function editMode() {
   }
 }
 
-// Au sujet de la modal::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+// Création de la modal pour la suppression des travaux :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
 // Pour l'ouverture de la Modal:
 let modal = null;
@@ -173,27 +178,49 @@ const openModal = function (e) {
   target.setAttribute("aria-modal", "true");
   modal = target;
   modal.addEventListener("click", closeModal);
+  // Fermeture en cliquant sur la croix:
+  modal.querySelector(".cross").addEventListener("click", closeModal);
+  modal
+    .querySelector(".js-modal-stop")
+    .addEventListener("click", stopPropagation);
 };
 
+// Pour la fermeture de la Modal:
+const closeModal = function (e) {
+  if (modal === null) return;
+  e.preventDefault();
+  // Pour permettre les animation à la fermeture de la modal:
+  window.setTimeout(function () {
+    modal.style.display = "none";
+    modal = null;
+  }, 500);
+  modal.setAttribute("aria-hidden", "true");
+  modal.removeAttribute("aria-modal");
+  modal.removeEventListener("click", closeModal);
+  modal.querySelector(".cross").removeEventListener("click", closeModal);
+  modal
+    .querySelector(".js-modal-stop")
+    .removeEventListener("click", stopPropagation);
+};
+
+// Pour éviter la fermeture de la modal au click sur son contenu:
+const stopPropagation = function (e) {
+  e.stopPropagation();
+};
+
+// Evenement d'ouverture de la modal sur chaque lien concerné:
 document.querySelectorAll(".js-modal").forEach((a) => {
   a.addEventListener("click", openModal);
 });
 
-// Pour la fermeture de la Modal:
-const cross = document.querySelector(".cross");
-const closeModal = function (e) {
-  e.preventDefault();
-  modal.style.display = "none";
-  modal.setAttribute("aria-hidden", "true");
-  modal.removeAttribute("aria-modal");
-  modal.removeEventListener("click", closeModal);
-  modal = null;
-};
+// Fermeture de la modal en appuyant sur la touche "échape":
+window.addEventListener("keydown", function (e) {
+  if (e.key === "Escape" || e.key === "Esc") {
+    closeModal(e);
+  }
+});
 
-// Fermeture en cliquant sur la croix:
-cross.addEventListener("click", closeModal);
-
-// Afficher les travaux dans la modal::::::::::::::::::::::::::::::::::::::::::::::::::
+// Afficher les travaux dans la modal::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
 // Fonction pour l'affichage des travaux:
 async function displayWorksModal(id = "0") {
@@ -201,28 +228,102 @@ async function displayWorksModal(id = "0") {
   const allFiguresModal = document.querySelector(".galleryModal");
   // Et effacer son contenu du fichier HTML:
   allFiguresModal.innerHTML = "";
+
   for (const work of allWorks) {
     if (id == work.categoryId || id == "0") {
-      // Création d’une balise dédiée chaque travail:
-      let figureElement = document.createElement("figure");
+      // Création d’une balise dédiée à chaque travail:
+      let figureElement2 = document.createElement("figure");
       // Création d'une "class" pour les figures:
-      figureElement.classList.add("figureModal");
+      figureElement2.classList.add("figureModal");
+      // Création d'une "class" par figures:
+      figureElement2.classList.add(`number${work.id}`);
       // On crée l’élément img. :
       let imageElement = document.createElement("img");
       // On crée l’élément "figcaption" :
       let figcaptionElement = document.createElement("figcaption");
       // Ajout d'un "id" suivant la catégorie:
-      figureElement.setAttribute("id", `${work.categoryId}`);
+      figureElement2.setAttribute("id", `${work.categoryId}`);
       // On accède à l’indice i de la liste des travaux pour configurer la source de l’image.
       imageElement.src = work.imageUrl;
       // // Et la balise "figcation":
       figcaptionElement.innerText = "éditer";
       // On rattache la balise "figure" à la section "allFigure":
-      allFiguresModal.appendChild(figureElement);
+      allFiguresModal.appendChild(figureElement2);
       // On rattache l’image à l'élément "figure":
-      figureElement.appendChild(imageElement);
+      figureElement2.appendChild(imageElement);
       // On rattache l’image à l'élément "figcation":
-      figureElement.appendChild(figcaptionElement);
+      figureElement2.appendChild(figcaptionElement);
+      // Création de l'icône "supprimé":
+      let iconFigure = document.createElement("i");
+      // Ajout des "class" de l'icône:
+      iconFigure.classList.add("fa-solid", "fa-trash-can");
+      // Rattachement de l'icône à la "figure":
+      figureElement2.appendChild(iconFigure);
+      iconFigure.addEventListener("click", (e) => {
+        e.preventDefault();
+        async function deleteWork(id) {
+          const response = await fetch(
+            `http://localhost:5678/api/works/${id}`,
+            {
+              method: "DELETE",
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+            }
+          );
+
+          if (response.ok) {
+            console.log(response);
+            figureElement2.remove();
+          }
+        }
+        deleteWork(work.id);
+      });
+      if (`number${work.id}` == "number1") {
+        // Création de l'icône "déplacer"(`${work.id}`):
+        let iconFigureArrow = document.createElement("i");
+        // Ajout des "class" de l'icône:
+        iconFigureArrow.classList.add(
+          "fa-solid",
+          "fa-arrows-up-down-left-right"
+        );
+        // Rattachement de l'icône à la "figure":
+        figureElement2.appendChild(iconFigureArrow);
+      }
     }
   }
 }
+// deleteWork();
+// Suppression d'un projet:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+// let figureElement2 = document.createElement("figure");
+// async function deleteWork(id) {
+//   const response = await fetch(`http://localhost:5678/api/works/${id}`, {
+//     method: "DELETE",
+//     headers: {
+//       Authorization: `Bearer ${token}`,
+//     },
+//   });
+
+//   if (response.ok) {
+//     console.log(response);
+//     figureElement2.remove();
+//   }
+// }
+
+// async function deleteWork(id) {
+//   const response = await fetch(`http://localhost:5678/api/works/${id}`, {
+//     method: "DELETE",
+//     headers: {
+//       Authorization: `Bearer ${token}`,
+//     },
+//   });
+//   let allFigures1 = work.id;
+//   if (response.ok) {
+//     console.log(response);
+//     allFigures1.remove();
+//     allFigures1.id.remove();
+//     // displayWorksModal();
+
+//     // displayWorks();
+//   }
+// }
