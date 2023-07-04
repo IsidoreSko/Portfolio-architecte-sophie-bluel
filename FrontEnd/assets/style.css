@@ -340,14 +340,14 @@ button, #passwordForgeted {
 	color: black;
 }
 
-/* Pour les icône "modifier */
+/* Pour les icône "modifier" */
 .changeOne .fa-edit, .changeTwo .fa-edit {
 	font-size: 18px;
 }
 
-/* Au sujet de la "modal" :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: */
+/* Au sujet des "modals" ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: */
 
-.modal {
+#modalAll {
 	position: fixed;
 	display: flex;
 	align-items: center;
@@ -362,13 +362,13 @@ button, #passwordForgeted {
 	animation: appearance 0.5s both;
 }
 
-.modalWrapper {
+/* Concernant l'affichage des modals: */
+.modalWrapper .modal1, .modalWrapper .modal2{
 	overflow: auto;
 	width: 630px;
-	/* height: 731px; */
 	max-width: calc(100vw - 20px);
 	max-height : calc(100vh - 20px);
-	padding: 35px auto;
+	/* padding: 35px auto; */
 	background-color: #FFF;
 	border-radius: 10px;
 	margin-top: 50px;
@@ -380,15 +380,15 @@ button, #passwordForgeted {
 }
 
 /* Animation à la fermeture de la modal: */
-.modal[aria-hidden="true"] {	
+#modalAll[aria-hidden="true"]{	
 	animation-name: appearanceReverse;
 }
 
-.modal[aria-hidden="true"] .modalWrapper{
+#modalAll[aria-hidden="true"] .modalWrapper1{
 	animation-name: presenceReverse;
 }
 
-/* Pour le titre de la modal: */
+/* Pour le titre des modal: */
 .titleModal {
 	font-family: "Work Sans";
 	font-weight: 400;
@@ -400,11 +400,12 @@ button, #passwordForgeted {
 }
 
 /* Pour l'icône "croix" de la modal: */
-.modalWrapper .fa-x {
-	margin-top: 15px;
-	margin-left: 500px;
+.modalWrapper .cross, .modalWrapper .cross2{
+	margin-left: 545px;
+	margin-top: 20px;
 	cursor: pointer;
 	font-size: medium;
+	z-index: 1;
 }
 
 /* Bouton de la modal: */
@@ -427,7 +428,7 @@ button, #passwordForgeted {
 }
 
 /*Concernant la phrase "Supprimer la galerie" */
-.modalWrapper p {
+.modal1 p {
 	font-family: 'Syne';
 	font-weight: 400;
 	font-size: 14px;
@@ -438,7 +439,7 @@ button, #passwordForgeted {
 	margin-bottom: 30px;
 }
 
-/* Au sujet de la galerie de travaux dans la modal: */
+/* Au sujet de la galerie de travaux dans la modal::::::::::::::::::::::::::::::::::::: */
 .galleryModal {
 	width: 80%;
 	height: 355px;
@@ -450,11 +451,11 @@ button, #passwordForgeted {
 	border-bottom: #B3B3B3 solid 1.5px;
 }
 
+
 /* Concernat les figures de la galerie: */
 .figureModal img{
 	height: 104px;
 	width: 78px;
-
 }
 
 .figure .figcaption {
@@ -488,7 +489,130 @@ button, #passwordForgeted {
 	left: 8px;
 }
 
-/* Ajout d'une animation pour l'apparition de la moal à son ouverture: */
+/* Ausujet dela 2ème Modal pour ajouter un travail::::::::::::::::::::::::::::::::::::::::::: */
+
+/* Dispositiondel'affichage de la modal: */
+.viewModal{
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+/* Partie permettant d'insérer la photo */
+.addPicture {
+	width: 420px;
+	height: 169px;
+	background-color: #E8F1F6;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	margin-top: 30px;
+	margin-bottom: 20px;
+}
+
+/* Pour les inputs "title" et "category: */
+#title, #category {
+	width: 420px;
+	height: 51px;
+	box-shadow: 0px 4px 14px 0px rgba(0, 0, 0, 0.09);
+	background: white;
+	border: none;
+}
+
+/* Pour les titres des inputs: */
+.title {
+	color: rgba(61, 61, 61, 1);
+	font-family: Work Sans;
+	font-size: 14px;
+	font-weight: 500;
+	line-height: 16px;
+	letter-spacing: 0em;
+	display: flex;
+	align-items: start;
+	margin-bottom: 10px;
+	margin-top: 10px;
+}
+
+/* Disposition du formulaire: */
+#uploadForm{
+	display: flex;
+	flex-direction: column;
+	padding-bottom: 50px;
+	border-bottom: #B3B3B3 solid 1.5px;
+}
+
+/* Au sujet du bouton "valider": */
+.buttonModal2 {
+	width: 237px;
+	height: 36px;
+	font-family: 'Syne';
+	font-weight: 700;
+	color: white;
+	background-color: rgba(167, 167, 167, 1);
+	margin : 2.9em auto ;
+	text-align: center;
+	border-radius: 60px;
+	cursor: pointer;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	padding: 17px;
+	border: none;
+	display: flex;
+}
+
+/* Au sujet de l'icône "image": */
+.viewModal .fa-image {
+	width: 58px;
+	height: 58px;
+	font-size: 58px;
+	color: rgba(185, 197, 204, 1);
+	display: flex;
+}
+
+/* Concernant le bouton d'ajout de photo: */
+.buttonAddPhoto{
+	width: 173px;
+	height: 36px;
+	top: 881px;
+	left: 633px;
+	border-radius: 50px;
+	border: none;
+	background: rgba(203, 214, 220, 1);
+	align-items: center;
+	color: rgba(48, 102, 133, 1);
+	font-family: Work Sans;
+	font-size: 14px;
+	font-weight: 500;
+	line-height: 16px;
+	text-align: center;
+	margin-top: 20px;
+	margin-bottom: 10px;
+}
+
+/* Au sujet des informations concernant la phot à rajouter: */
+.pictureFormat {
+	font-family: Work Sans;
+	font-size: 10px;
+	font-weight: 400;
+	line-height: 12px;
+	letter-spacing: 0em;
+	text-align: center;
+
+}
+
+/* Concernant l'icône flèche de retour vers la galerie: */
+.modal2 .arrowBack {
+	font-size: 20px;
+	position:absolute;
+	top: 10px;
+	left: 20px;
+	cursor: pointer;
+}
+
+/* Ajout d'une animation pour l'apparition de la moal à son ouverture:::::::::::::::::::::: */
  
 @keyframes appearance {
 	from {opacity:0;}

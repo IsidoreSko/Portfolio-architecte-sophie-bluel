@@ -23,7 +23,7 @@
   <body>
     <!-- Rajout d'une "div" pour la "topBar" qui apparait en mode édition:-->
     <div class="topBar">
-      <a href="#" class="mode js-modal"
+      <a href="#" class="mode"
         ><i class="fas fa-light fa-edit"></i>
         <span class="edit">Mode édition</span></a
       >
@@ -49,9 +49,9 @@
       </nav>
     </header>
     <main>
-      <!-- Ajout de la modal: -->
+      <!-- Section ajout des modals: -->
       <aside
-        id="modal1"
+        id="modalAll"
         class="modal"
         aria-hidden="true"
         role="dialog"
@@ -59,13 +59,44 @@
         aria-labelledby="titleModal"
         style="display: none"
       >
-        <div class="modalWrapper js-modal-stop">
-          <span class="cross"><i class="fa-solid fa-x"></i></span>
-          <h2 class="titleModal">Galerie photos</h2>
-          <div class="galleryModal"></div>
-          <button class="buttonModal">Ajouter une photo</button>
+        <div class="js-modal-stop modalWrapper">
+          <!-- 1ère Modal "supression" de travaux:-->
+          <div class="modal1">
+            <span class="cross"><i class="fa-solid fa-x"></i></span>
+            <h2 class="titleModal">Galerie photos</h2>
+            <div class="galleryModal"></div>
+            <button class="buttonModal">Ajouter une photo</button>
+            <p>Supprimer la galerie</p>
+          </div>
+          <!-- 2ème Modal "ajout" de travaux: -->
+          <div class="modal2">
+            <span class="cross2"><i class="fa-solid fa-x"></i></span>
+            <span class="arrow"
+              ><i class="fa-solid fa-arrow-left arrowBack"></i
+            ></span>
+            <div class="viewModal">
+              <h2 class="titleModal">Ajout photo</h2>
 
-          <p>Supprimer la galerie</p>
+              <div class="addPicture">
+                <i class="fa-regular fa-image"></i>
+                <button class="buttonAddPhoto">+ Ajouter photo</button>
+                <p class="pictureFormat">jpg, png : 4mo max</p>
+              </div>
+              <form id="uploadForm" enctype="multipart/form-data">
+                <label for="title" class="title">Titre</label><br />
+                <input type="text" name="title" id="title" />
+                <label for="category" class="title">Catégorie</label>
+                <select id="category" name="category">
+                  <option value="default"></option>
+                  <option value="1">Objets</option>
+                  <option value="2">Appartements</option>
+                  <option value="3">Hotels & restaurants</option>
+                  <option value="4">Bar & Restaurant</option>
+                </select>
+              </form>
+              <button class="buttonModal2">Valider</button>
+            </div>
+          </div>
         </div>
       </aside>
 
@@ -76,7 +107,7 @@
         <article>
           <!-- Rajout d'une "div" pour l'acces à la modification en mode édition:-->
           <div class="changeThree">
-            <a href="#" class="mode js-modal"
+            <a href="#" class="mode"
               ><i class="fas fa-light fa-edit"></i>modifier</a
             >
           </div>
@@ -101,7 +132,7 @@
         </article>
         <!-- Rajout d'une "div" pour l'acces à la modification en mode édition:-->
         <div class="changeOne">
-          <a href="#" class="mode js-modal"
+          <a href="#" class="mode"
             ><i class="fas fa-light fa-edit"></i>modifier</a
           >
         </div>
@@ -110,7 +141,7 @@
         <h2>Mes Projets</h2>
         <!-- Rajout d'une "div" pour l'acces à la modification en mode édition:-->
         <div class="changeTwo">
-          <a href="#modal1" class="mode js-modal"
+          <a href="#modalAll" class="mode js-modal"
             ><i class="fas fa-light fa-edit"></i>modifier</a
           >
         </div>

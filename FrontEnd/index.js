@@ -21,7 +21,6 @@ async function init() {
   displayFiltres();
   editMode();
   displayWorksModal();
-  // deleteWork();
 }
 
 init();
@@ -37,11 +36,11 @@ async function getAlldatabaseInfo(type) {
     console.log(response);
   }
 }
-const allFigures = document.querySelector(".gallery");
+
 // Fonction pour l'affichage des travaux::::::::::::::::::::::::::::::::::::::::::::::::::::
 async function displayWorks(id = "0") {
   // Récupération de l'élément du DOM qui accueillera les travaux:
-
+  const allFigures = document.querySelector(".gallery");
   // Et effacer son contenu du fichier HTML:
   allFigures.innerHTML = "";
   for (const work of allWorks) {
@@ -177,12 +176,14 @@ const openModal = function (e) {
   target.removeAttribute("aria-hidden");
   target.setAttribute("aria-modal", "true");
   modal = target;
-  modal.addEventListener("click", closeModal);
+  target.addEventListener("click", closeModal);
   // Fermeture en cliquant sur la croix:
   modal.querySelector(".cross").addEventListener("click", closeModal);
+  modal.querySelector(".cross2").addEventListener("click", closeModal);
   modal
     .querySelector(".js-modal-stop")
     .addEventListener("click", stopPropagation);
+  changeModal(false);
 };
 
 // Pour la fermeture de la Modal:
@@ -198,6 +199,7 @@ const closeModal = function (e) {
   modal.removeAttribute("aria-modal");
   modal.removeEventListener("click", closeModal);
   modal.querySelector(".cross").removeEventListener("click", closeModal);
+  modal.querySelector(".cross2").removeEventListener("click", closeModal);
   modal
     .querySelector(".js-modal-stop")
     .removeEventListener("click", stopPropagation);
@@ -232,33 +234,34 @@ async function displayWorksModal(id = "0") {
   for (const work of allWorks) {
     if (id == work.categoryId || id == "0") {
       // Création d’une balise dédiée à chaque travail:
-      let figureElement2 = document.createElement("figure");
+      let figureElement = document.createElement("figure");
       // Création d'une "class" pour les figures:
-      figureElement2.classList.add("figureModal");
+      figureElement.classList.add("figureModal");
       // Création d'une "class" par figures:
-      figureElement2.classList.add(`number${work.id}`);
+      figureElement.classList.add(`number${work.id}`);
       // On crée l’élément img. :
       let imageElement = document.createElement("img");
       // On crée l’élément "figcaption" :
       let figcaptionElement = document.createElement("figcaption");
       // Ajout d'un "id" suivant la catégorie:
-      figureElement2.setAttribute("id", `${work.categoryId}`);
+      figureElement.setAttribute("id", `${work.categoryId}`);
       // On accède à l’indice i de la liste des travaux pour configurer la source de l’image.
       imageElement.src = work.imageUrl;
       // // Et la balise "figcation":
       figcaptionElement.innerText = "éditer";
       // On rattache la balise "figure" à la section "allFigure":
-      allFiguresModal.appendChild(figureElement2);
+      allFiguresModal.appendChild(figureElement);
       // On rattache l’image à l'élément "figure":
-      figureElement2.appendChild(imageElement);
+      figureElement.appendChild(imageElement);
       // On rattache l’image à l'élément "figcation":
-      figureElement2.appendChild(figcaptionElement);
+      figureElement.appendChild(figcaptionElement);
       // Création de l'icône "supprimé":
       let iconFigure = document.createElement("i");
       // Ajout des "class" de l'icône:
       iconFigure.classList.add("fa-solid", "fa-trash-can");
       // Rattachement de l'icône à la "figure":
-      figureElement2.appendChild(iconFigure);
+      figureElement.appendChild(iconFigure);
+      // Supression d'un des travaux au click sur l'icône:
       iconFigure.addEventListener("click", (e) => {
         e.preventDefault();
         async function deleteWork(id) {
@@ -271,16 +274,16 @@ async function displayWorksModal(id = "0") {
               },
             }
           );
-
           if (response.ok) {
-            console.log(response);
-            figureElement2.remove();
+            figureElement.remove();
+            // getAlldatabaseInfo(work);
+            displayWorks();
           }
         }
         deleteWork(work.id);
       });
       if (`number${work.id}` == "number1") {
-        // Création de l'icône "déplacer"(`${work.id}`):
+        // Création de l'icône "déplacer":
         let iconFigureArrow = document.createElement("i");
         // Ajout des "class" de l'icône:
         iconFigureArrow.classList.add(
@@ -288,42 +291,31 @@ async function displayWorksModal(id = "0") {
           "fa-arrows-up-down-left-right"
         );
         // Rattachement de l'icône à la "figure":
-        figureElement2.appendChild(iconFigureArrow);
+        figureElement.appendChild(iconFigureArrow);
       }
     }
   }
 }
-// deleteWork();
-// Suppression d'un projet:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-// let figureElement2 = document.createElement("figure");
-// async function deleteWork(id) {
-//   const response = await fetch(`http://localhost:5678/api/works/${id}`, {
-//     method: "DELETE",
-//     headers: {
-//       Authorization: `Bearer ${token}`,
-//     },
-//   });
 
-//   if (response.ok) {
-//     console.log(response);
-//     figureElement2.remove();
-//   }
-// }
+// Pour le changement de modal::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+const addButtonPhoto = document.querySelector(".buttonModal");
+addButtonPhoto.addEventListener("click", function () {
+  changeModal(true);
+});
 
-// async function deleteWork(id) {
-//   const response = await fetch(`http://localhost:5678/api/works/${id}`, {
-//     method: "DELETE",
-//     headers: {
-//       Authorization: `Bearer ${token}`,
-//     },
-//   });
-//   let allFigures1 = work.id;
-//   if (response.ok) {
-//     console.log(response);
-//     allFigures1.remove();
-//     allFigures1.id.remove();
-//     // displayWorksModal();
+const backArrowModal = document.querySelector(".arrowBack");
+backArrowModal.addEventListener("click", function () {
+  changeModal(false);
+});
 
-//     // displayWorks();
-//   }
-// }
+function changeModal(view) {
+  const modal1 = document.querySelector(".modal1");
+  const modal2 = document.querySelector(".modal2");
+  if (view) {
+    modal2.style.display = "flex";
+    modal1.style.display = "none";
+  } else {
+    modal2.style.display = "none";
+    modal1.style.display = "flex";
+  }
+}
