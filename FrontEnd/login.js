@@ -7,7 +7,7 @@ form.addEventListener("submit", async (e) => {
   // Création des variables:
   const email = document.getElementById("email");
   const password = document.getElementById("password");
-  const messageError = document.getElementById("error");
+  const messageError = document.querySelector(".error");
 
   // Envoi des valeurs à l'API:
   const response = await fetch("http://localhost:5678/api/users/login", {

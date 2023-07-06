@@ -37,6 +37,37 @@ async function getAlldatabaseInfo(type) {
   }
 }
 
+// Pour suprimer un travail de la galerie:
+async function deleteWork(id) {
+  const response = await fetch(`http://localhost:5678/api/works/${id}`, {
+    method: "DELETE",
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  if (response.ok) {
+    return "success";
+  } else {
+    return "error";
+  }
+}
+
+// Pour ajouter des travaux dans la galerie:
+async function addWork() {
+  const response = await fetch("http://localhost:5678/api/works/", {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+    body: formData,
+  });
+  if (response.ok) {
+    return "success";
+  } else {
+    return "error";
+  }
+}
+
 // Fonction pour l'affichage des travaux::::::::::::::::::::::::::::::::::::::::::::::::::::
 async function displayWorks(id = "0") {
   // Récupération de l'élément du DOM qui accueillera les travaux:
@@ -223,76 +254,63 @@ window.addEventListener("keydown", function (e) {
 });
 
 // Afficher les travaux dans la modal::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-
+const buttonSearchPhoto = document.getElementById("buttonAddPhoto");
 // Fonction pour l'affichage des travaux:
-async function displayWorksModal(id = "0") {
+async function displayWorksModal() {
   // Récupération de l'élément du DOM qui accueillera les travaux:
   const allFiguresModal = document.querySelector(".galleryModal");
   // Et effacer son contenu du fichier HTML:
   allFiguresModal.innerHTML = "";
-
+  // const buttonSearchPhoto = document.getElementById("buttonAddPhoto");
   for (const work of allWorks) {
-    if (id == work.categoryId || id == "0") {
-      // Création d’une balise dédiée à chaque travail:
-      let figureElement = document.createElement("figure");
-      // Création d'une "class" pour les figures:
-      figureElement.classList.add("figureModal");
-      // Création d'une "class" par figures:
-      figureElement.classList.add(`number${work.id}`);
-      // On crée l’élément img. :
-      let imageElement = document.createElement("img");
-      // On crée l’élément "figcaption" :
-      let figcaptionElement = document.createElement("figcaption");
-      // Ajout d'un "id" suivant la catégorie:
-      figureElement.setAttribute("id", `${work.categoryId}`);
-      // On accède à l’indice i de la liste des travaux pour configurer la source de l’image.
-      imageElement.src = work.imageUrl;
-      // // Et la balise "figcation":
-      figcaptionElement.innerText = "éditer";
-      // On rattache la balise "figure" à la section "allFigure":
-      allFiguresModal.appendChild(figureElement);
-      // On rattache l’image à l'élément "figure":
-      figureElement.appendChild(imageElement);
-      // On rattache l’image à l'élément "figcation":
-      figureElement.appendChild(figcaptionElement);
-      // Création de l'icône "supprimé":
-      let iconFigure = document.createElement("i");
-      // Ajout des "class" de l'icône:
-      iconFigure.classList.add("fa-solid", "fa-trash-can");
-      // Rattachement de l'icône à la "figure":
-      figureElement.appendChild(iconFigure);
-      // Supression d'un des travaux au click sur l'icône:
-      iconFigure.addEventListener("click", (e) => {
-        e.preventDefault();
-        async function deleteWork(id) {
-          const response = await fetch(
-            `http://localhost:5678/api/works/${id}`,
-            {
-              method: "DELETE",
-              headers: {
-                Authorization: `Bearer ${token}`,
-              },
-            }
-          );
-          if (response.ok) {
-            figureElement.remove();
-            // getAlldatabaseInfo(work);
-            displayWorks();
-          }
-        }
-        deleteWork(work.id);
-      });
-      if (`number${work.id}` == "number1") {
-        // Création de l'icône "déplacer":
-        let iconFigureArrow = document.createElement("i");
-        // Ajout des "class" de l'icône:
-        iconFigureArrow.classList.add(
-          "fa-solid",
-          "fa-arrows-up-down-left-right"
-        );
-        // Rattachement de l'icône à la "figure":
-        figureElement.appendChild(iconFigureArrow);
+    // Création d’une balise dédiée à chaque travail:
+    let figureElement = document.createElement("figure");
+    // Création d'une "class" pour les figures:
+    figureElement.classList.add("figureModal");
+    // Création d'une "class" par figures:
+    figureElement.classList.add(`number${work.id}`);
+    // On crée l’élément img. :
+    let imageElement = document.createElement("img");
+    // On crée l’élément "figcaption" :
+    let figcaptionElement = document.createElement("figcaption");
+    // Ajout d'un "id" suivant la catégorie:
+    figureElement.setAttribute("id", `${work.categoryId}`);
+    // On accède à l’indice i de la liste des travaux pour configurer la source de l’image.
+    imageElement.src = work.imageUrl;
+    // // Et la balise "figcation":
+    figcaptionElement.innerText = "éditer";
+    // On rattache la balise "figure" à la section "allFigure":
+    allFiguresModal.appendChild(figureElement);
+    // On rattache l’image à l'élément "figure":
+    figureElement.appendChild(imageElement);
+    // On rattache l’image à l'élément "figcation":
+    figureElement.appendChild(figcaptionElement);
+    // Création de l'icône "supprimé":
+    let iconFigure = document.createElement("i");
+    // Ajout des "class" de l'icône:
+    iconFigure.classList.add("fa-solid", "fa-trash-can");
+    // Rattachement de l'icône à la "figure":
+    figureElement.appendChild(iconFigure);
+
+    // Supression d'un des travaux au click sur l'icône:
+    iconFigure.addEventListener("click", async (e) => {
+      e.preventDefault();
+
+      const testDelete = await deleteWork(work.id);
+      if (testDelete == "success") {
+        figureElement.remove();
+        allWorks.delete(work);
+        displayWorks();
       }
+    });
+
+    if (`number${work.id}` == "number1") {
+      // Création de l'icône "déplacer":
+      let iconFigureArrow = document.createElement("i");
+      // Ajout des "class" de l'icône:
+      iconFigureArrow.classList.add("fa-solid", "fa-arrows-up-down-left-right");
+      // Rattachement de l'icône à la "figure":
+      figureElement.appendChild(iconFigureArrow);
     }
   }
 }
@@ -319,3 +337,48 @@ function changeModal(view) {
     modal1.style.display = "flex";
   }
 }
+
+// Action sur l' "input" pour récupérer une image à ajouter:
+// const buttonSearchPhoto = document.getElementById("buttonAddPhoto");
+const addImage = document.getElementById("addPicture");
+buttonSearchPhoto.addEventListener("change", function () {
+  const selectFile = buttonSearchPhoto.files[0];
+  if (selectFile) {
+    const imgUrl = URL.createObjectURL(selectFile);
+    const img = document.createElement("img");
+    img.src = imgUrl;
+    addImage.innerHTML = "";
+    addImage.appendChild(img);
+    addWork();
+    // figureElement.appendChild();
+    allWorks.add(work);
+    displayWorks();
+  }
+});
+
+const addCategoryImage = document.getElementById("categoryForm");
+const addTitleImage = document.getElementById("titleForm");
+const submitForm = document.getElementById("buttonModalSubmit");
+
+const formData = new FormData();
+formData.append("image", buttonSearchPhoto.files[0]);
+formData.append("title", addTitleImage.value);
+formData.append("category", addCategoryImage.value);
+
+const addImageOverview = document.getElementById("imageOverview");
+submitForm.addEventListener("click", (e) => {
+  e.preventDefault();
+  const errorForm = document.querySelector(".error2");
+
+  // S'il n'y a pas de titre renseigné: //
+  if (addTitleImage.value === "") {
+    errorForm.innerHTML = "Veuillez renseigner le titre";
+    return;
+  }
+
+  // S'il n'y a pas d'image ajoutée: !buttonSearchPhoto.files[0]  addPicture === ""  //
+  if (!addImageOverview.firstChild) {
+    errorForm.innerHTML = "Veuillez ajouter une image";
+    return;
+  }
+});

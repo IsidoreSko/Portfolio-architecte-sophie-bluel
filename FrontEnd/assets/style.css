@@ -249,11 +249,11 @@ button, #passwordForgeted {
 }
 
 /* Concernant le message d'erreur: */
-#error {
+.error, .error2 {
 	color: red;
 	display: flex;
 	justify-content: center;
-	margin-bottom: 10px;
+	margin-bottom: 50px;
 }
 
 /* Concernant les éléments qui se rajout en mode édition: */
@@ -442,7 +442,6 @@ button, #passwordForgeted {
 /* Au sujet de la galerie de travaux dans la modal::::::::::::::::::::::::::::::::::::: */
 .galleryModal {
 	width: 80%;
-	height: 355px;
 	display: flex;
 	flex-wrap: wrap;
 	gap:10px;
@@ -500,7 +499,7 @@ button, #passwordForgeted {
 }
 
 /* Partie permettant d'insérer la photo */
-.addPicture {
+#addPicture {
 	width: 420px;
 	height: 169px;
 	background-color: #E8F1F6;
@@ -513,7 +512,7 @@ button, #passwordForgeted {
 }
 
 /* Pour les inputs "title" et "category: */
-#title, #category {
+#titleForm, #categoryForm {
 	width: 420px;
 	height: 51px;
 	box-shadow: 0px 4px 14px 0px rgba(0, 0, 0, 0.09);
@@ -544,14 +543,15 @@ button, #passwordForgeted {
 }
 
 /* Au sujet du bouton "valider": */
-.buttonModal2 {
+#buttonModalSubmit {
 	width: 237px;
 	height: 36px;
 	font-family: 'Syne';
 	font-weight: 700;
 	color: white;
 	background-color: rgba(167, 167, 167, 1);
-	margin : 2.9em auto ;
+	margin-top : 2.9em;
+	margin-bottom: 10px;
 	text-align: center;
 	border-radius: 60px;
 	cursor: pointer;
@@ -573,11 +573,11 @@ button, #passwordForgeted {
 }
 
 /* Concernant le bouton d'ajout de photo: */
-.buttonAddPhoto{
+.buttonAddPhotoAspect{
 	width: 173px;
 	height: 36px;
-	top: 881px;
-	left: 633px;
+	/* top: 881px;
+	left: 633px; */
 	border-radius: 50px;
 	border: none;
 	background: rgba(203, 214, 220, 1);
@@ -587,7 +587,10 @@ button, #passwordForgeted {
 	font-size: 14px;
 	font-weight: 500;
 	line-height: 16px;
-	text-align: center;
+	/* text-align: center; */
+	display: flex;
+	justify-content: center;
+	align-items: center;
 	margin-top: 20px;
 	margin-bottom: 10px;
 }
@@ -643,3 +646,6 @@ button, #passwordForgeted {
 	  transform: scale(0);
 	}
   }
+
+
+  

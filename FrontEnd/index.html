@@ -76,25 +76,42 @@
             ></span>
             <div class="viewModal">
               <h2 class="titleModal">Ajout photo</h2>
-
-              <div class="addPicture">
+              <!-- lllllllllllllllll -->
+              <div id="addPicture">
+                <label for="buttonAddPhoto"
+                  ><i class="fa-regular fa-image"></i
+                ></label>
+                <label class="buttonAddPhotoAspect" for="buttonAddPhoto"
+                  >+ Ajouter photo
+                  <input
+                    type="file"
+                    id="buttonAddPhoto"
+                    accept="image/png,image/jpg,image/jpeg"
+                    style="display: none"
+                  />
+                </label>
+                <label class="pictureFormat">jpg.png : 4mo max</label>
+                <div id="imageOverview"></div>
+              </div>
+              <!-- <div class="addPicture">
                 <i class="fa-regular fa-image"></i>
                 <button class="buttonAddPhoto">+ Ajouter photo</button>
-                <p class="pictureFormat">jpg, png : 4mo max</p>
-              </div>
+                <p class=>jpg, png : 4mo max</p>
+              </div> -->
+              <div class="view"></div>
               <form id="uploadForm" enctype="multipart/form-data">
-                <label for="title" class="title">Titre</label><br />
-                <input type="text" name="title" id="title" />
+                <label for="title" class="title">Titre</label>
+                <input type="text" name="title" id="titleForm" />
                 <label for="category" class="title">Catégorie</label>
-                <select id="category" name="category">
+                <select id="categoryForm" name="category">
                   <option value="default"></option>
                   <option value="1">Objets</option>
                   <option value="2">Appartements</option>
-                  <option value="3">Hotels & restaurants</option>
-                  <option value="4">Bar & Restaurant</option>
+                  <option value="3">Hotels & Restaurants</option>
                 </select>
               </form>
-              <button class="buttonModal2">Valider</button>
+              <button id="buttonModalSubmit" type="submit">Valider</button>
+              <p class="error2"></p>
             </div>
           </div>
         </div>
