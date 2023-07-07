@@ -512,7 +512,7 @@ button, #passwordForgeted {
 }
 
 /* Pour les inputs "title" et "category: */
-#titleForm, #categoryForm {
+#title, #category{
 	width: 420px;
 	height: 51px;
 	box-shadow: 0px 4px 14px 0px rgba(0, 0, 0, 0.09);
@@ -593,6 +593,7 @@ button, #passwordForgeted {
 	align-items: center;
 	margin-top: 20px;
 	margin-bottom: 10px;
+	cursor: pointer;
 }
 
 /* Au sujet des informations concernant la phot à rajouter: */

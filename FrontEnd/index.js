@@ -54,7 +54,7 @@ async function deleteWork(id) {
 
 // Pour ajouter des travaux dans la galerie:
 async function addWork() {
-  const response = await fetch("http://localhost:5678/api/works/", {
+  const response = await fetch("http://localhost:5678/api/works", {
     method: "POST",
     headers: {
       Authorization: `Bearer ${token}`,
@@ -304,6 +304,28 @@ async function displayWorksModal() {
       }
     });
 
+    const addImage = document.getElementById("addPicture");
+    buttonSearchPhoto.addEventListener("change", async (e) => {
+      e.preventDefault();
+      const selectFile = buttonSearchPhoto.files[0];
+      if (selectFile) {
+        const imgUrl = URL.createObjectURL(selectFile);
+        const img = document.createElement("img");
+        img.src = imgUrl;
+        addImage.innerHTML = "";
+        addImage.appendChild(img);
+      }
+      const testAdd = await addWork(work.id);
+      if (testAdd == "success") {
+        allWorks.add(work);
+        displayWorks();
+      }
+
+      console.log(addCategoryImage.value);
+      console.log(addTitleImage.value);
+      console.log(buttonSearchPhoto.files[0]);
+    });
+
     if (`number${work.id}` == "number1") {
       // Création de l'icône "déplacer":
       let iconFigureArrow = document.createElement("i");
@@ -340,24 +362,24 @@ function changeModal(view) {
 
 // Action sur l' "input" pour récupérer une image à ajouter:
 // const buttonSearchPhoto = document.getElementById("buttonAddPhoto");
-const addImage = document.getElementById("addPicture");
-buttonSearchPhoto.addEventListener("change", function () {
-  const selectFile = buttonSearchPhoto.files[0];
-  if (selectFile) {
-    const imgUrl = URL.createObjectURL(selectFile);
-    const img = document.createElement("img");
-    img.src = imgUrl;
-    addImage.innerHTML = "";
-    addImage.appendChild(img);
-    addWork();
-    // figureElement.appendChild();
-    allWorks.add(work);
-    displayWorks();
-  }
-});
+// const addImage = document.getElementById("addPicture");
+// buttonSearchPhoto.addEventListener("change", function () {
+//   const selectFile = buttonSearchPhoto.files[0];
+//   if (selectFile) {
+//     const imgUrl = URL.createObjectURL(selectFile);
+//     const img = document.createElement("img");
+//     img.src = imgUrl;
+//     addImage.innerHTML = "";
+//     addImage.appendChild(img);
+//     addWork();
+//     // figureElement.appendChild();
+//     // allWorks.add(work);
+//     displayWorks();
+//   }
+// });
 
-const addCategoryImage = document.getElementById("categoryForm");
-const addTitleImage = document.getElementById("titleForm");
+const addCategoryImage = document.getElementById("category");
+const addTitleImage = document.getElementById("title");
 const submitForm = document.getElementById("buttonModalSubmit");
 
 const formData = new FormData();
@@ -368,6 +390,12 @@ formData.append("category", addCategoryImage.value);
 const addImageOverview = document.getElementById("imageOverview");
 submitForm.addEventListener("click", (e) => {
   e.preventDefault();
+
+  closeModal(e);
+
+  addCategoryImage.value = "";
+  addTitleImage.value = "";
+
   const errorForm = document.querySelector(".error2");
 
   // S'il n'y a pas de titre renseigné: //
@@ -380,5 +408,6 @@ submitForm.addEventListener("click", (e) => {
   if (!addImageOverview.firstChild) {
     errorForm.innerHTML = "Veuillez ajouter une image";
     return;
+  } else {
   }
 });
