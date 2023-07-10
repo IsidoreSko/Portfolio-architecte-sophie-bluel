@@ -254,6 +254,8 @@ window.addEventListener("keydown", function (e) {
 });
 
 // Afficher les travaux dans la modal::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+const submitForm = document.getElementById("buttonModalSubmit");
 const buttonSearchPhoto = document.getElementById("buttonAddPhoto");
 // Fonction pour l'affichage des travaux:
 async function displayWorksModal() {
@@ -304,26 +306,17 @@ async function displayWorksModal() {
       }
     });
 
-    const addImage = document.getElementById("addPicture");
-    buttonSearchPhoto.addEventListener("change", async (e) => {
+    // Ajout des travaux dans la modal:
+    submitForm.addEventListener("click", async (e) => {
       e.preventDefault();
-      const selectFile = buttonSearchPhoto.files[0];
-      if (selectFile) {
-        const imgUrl = URL.createObjectURL(selectFile);
-        const img = document.createElement("img");
-        img.src = imgUrl;
-        addImage.innerHTML = "";
-        addImage.appendChild(img);
-      }
+
       const testAdd = await addWork(work.id);
-      if (testAdd == "success") {
+      if (submitFunc(true) && testAdd == "success") {
         allWorks.add(work);
         displayWorks();
-      }
 
-      console.log(addCategoryImage.value);
-      console.log(addTitleImage.value);
-      console.log(buttonSearchPhoto.files[0]);
+        // closeModal();
+      }
     });
 
     if (`number${work.id}` == "number1") {
@@ -360,43 +353,47 @@ function changeModal(view) {
   }
 }
 
-// Action sur l' "input" pour récupérer une image à ajouter:
-// const buttonSearchPhoto = document.getElementById("buttonAddPhoto");
-// const addImage = document.getElementById("addPicture");
-// buttonSearchPhoto.addEventListener("change", function () {
-//   const selectFile = buttonSearchPhoto.files[0];
-//   if (selectFile) {
-//     const imgUrl = URL.createObjectURL(selectFile);
-//     const img = document.createElement("img");
-//     img.src = imgUrl;
-//     addImage.innerHTML = "";
-//     addImage.appendChild(img);
-//     addWork();
-//     // figureElement.appendChild();
-//     // allWorks.add(work);
-//     displayWorks();
-//   }
-// });
+// Importation de l'image du projet à rajouter:::::::::::::::::::::::::::::::::::::::::::::::
+
+const addImage = document.getElementById("addPicture");
+const selectFile = buttonSearchPhoto.files[0];
+const errorForm = document.querySelector(".error2");
 
 const addCategoryImage = document.getElementById("category");
 const addTitleImage = document.getElementById("title");
-const submitForm = document.getElementById("buttonModalSubmit");
 
 const formData = new FormData();
 formData.append("image", buttonSearchPhoto.files[0]);
 formData.append("title", addTitleImage.value);
 formData.append("category", addCategoryImage.value);
 
-const addImageOverview = document.getElementById("imageOverview");
-submitForm.addEventListener("click", (e) => {
+buttonSearchPhoto.addEventListener("change", async (e) => {
   e.preventDefault();
+  const selectFile = buttonSearchPhoto.files[0];
+  if (
+    selectFile.size > 4 * 1024 * 1024 ||
+    (selectFile.type !== "image/png" && selectFile.type !== "image/jpeg")
+  ) {
+    errorForm.innerHTML = "Mauvais format de l'image";
+    return;
+  } else {
+    if (selectFile) {
+      const imgUrl = URL.createObjectURL(selectFile);
+      const img = document.createElement("img");
+      img.src = imgUrl;
+      addImage.innerHTML = "";
+      addImage.appendChild(img);
+    }
+  }
+});
 
-  closeModal(e);
+// Fonction pour le remplissage du formulaire::::::::::::::::::::::::::::::::::::::::::::::::::
+async function submitFunc() {
+  // e.preventDefault(e);
 
-  addCategoryImage.value = "";
-  addTitleImage.value = "";
-
-  const errorForm = document.querySelector(".error2");
+  console.log(addCategoryImage.value);
+  console.log(addTitleImage.value);
+  console.log(buttonSearchPhoto.files[0]);
 
   // S'il n'y a pas de titre renseigné: //
   if (addTitleImage.value === "") {
@@ -404,10 +401,11 @@ submitForm.addEventListener("click", (e) => {
     return;
   }
 
-  // S'il n'y a pas d'image ajoutée: !buttonSearchPhoto.files[0]  addPicture === ""  //
-  if (!addImageOverview.firstChild) {
-    errorForm.innerHTML = "Veuillez ajouter une image";
-    return;
+  if (addTitleImage.value !== "" && addImage !== "") {
+    submitForm.style.backgroundColor = "#1D6154";
   } else {
+    addImage.value = "";
+    addCategoryImage.value = "";
+    addTitleImage.value = "";
   }
-});
+}
