@@ -321,25 +321,6 @@ async function displayWorksModal() {
       }
     });
 
-    // Ajout des travaux dans la modal:
-    submitForm.addEventListener("click", async (e) => {
-      e.preventDefault();
-      submitFunc();
-
-      const formData = new FormData();
-      formData.append("image", buttonSearchPhoto.files[0]);
-      formData.append("title", addTitleImage.value);
-      formData.append("category", addCategoryImage.value);
-
-      if (addWork(formData)) {
-        allWorks.add(work);
-        displayWorks(e);
-        resetForm(e);
-      } else {
-        console.log("error");
-      }
-    });
-
     if (`number${work.id}` == "number1") {
       // Création de l'icône "déplacer":
       let iconFigureArrow = document.createElement("i");
@@ -350,6 +331,26 @@ async function displayWorksModal() {
     }
   }
 }
+
+// Ajout des travaux:
+submitForm.addEventListener("click", async (e) => {
+  e.preventDefault();
+  submitFunc();
+
+  const formData = new FormData();
+  formData.append("image", buttonSearchPhoto.files[0]);
+  formData.append("title", addTitleImage.value);
+  formData.append("category", addCategoryImage.value);
+
+  if (addWork(formData)) {
+    // displayWorksModal();
+    allWorks.add();
+    // displayWorks();
+    resetForm(e);
+  } else {
+    console.log("error");
+  }
+});
 
 // Pour le changement de modal::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
@@ -417,19 +418,31 @@ async function submitFunc() {
 }
 
 // Fornction pour réinitialiser le formulaire::::::::::::::::::::::::::::::::::::::::::::::::
-function resetForm() {
-  // e.preventDefault;
+function resetForm(e) {
+  e.preventDefault;
   // console.log(addTitleImage.value);
   // console.log(addCategoryImage.value);
   // console.log(addImage);
   addTitleImage.value = "";
   addCategoryImage.value = "";
-
-  const imageNone = addImage.querySelector("img");
-  if (imageNone) {
-    imageNone.src = "";
-    selectFile === null;
-
-    console.log(selectFile);
-  }
+  buttonSearchPhoto.files[0].value = "";
+  addImage.remove(selectFile);
+  // photoName.innerHTML = "";
+  // buttonSearchPhoto.value = "";
+  // console.log(buttonSearchPhoto.value);
+  // addImage.value = "";
+  // console.log(addImage.value);
+  // selectFile.value = "";
+  // console.log(selectFile.value);
+  // addImage.display = "bloc";
+  // buttonSearchPhoto.files[0].name.innerHTML = "";
+  // console.log(photoName.name);
+  // addImage.value=""
+  // const imageNone = addImage.querySelector("img");
+  // if (imageNone) {
+  //   imageNone.src = "";
+  //   selectFile.src = "";
+  //   // addImage.remove("src");
+  //   console.log(selectFile);
+  // }
 }
