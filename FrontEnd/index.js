@@ -1,9 +1,25 @@
-// Création de listes:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+// Création de listes à eléments unique:::::::::::::::::::::::::::::::::::::::::::::::::::::
 
 const allWorks = new Set();
 const allCategories = new Set();
 
-// Fonction "init"::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+// Variables concernant l'ajout de travaux:
+
+const submitForm = document.getElementById("buttonModalSubmit");
+const buttonSearchPhoto = document.getElementById("buttonAddPhoto");
+
+const addImage = document.getElementById("addPicture");
+const selectFile = buttonSearchPhoto.files[0];
+const errorForm = document.querySelector(".error2");
+
+const addCategoryImage = document.getElementById("category");
+const addTitleImage = document.getElementById("title");
+
+// Variable pour le chnagement de Modal:
+
+const addButtonPhoto = document.querySelector(".buttonModal");
+
+// Fonction "init":::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
 async function init() {
   // Pour récupérer les données des "travaux":
@@ -25,7 +41,7 @@ async function init() {
 
 init();
 
-// Fonction pour les bases de données::::::::::::::::::::::::::::::::::::::::::::::
+// Fonction pour les bases de données::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
 // Pour récupérer les données selon leur type:
 async function getAlldatabaseInfo(type) {
@@ -53,7 +69,7 @@ async function deleteWork(id) {
 }
 
 // Pour ajouter des travaux dans la galerie:
-async function addWork() {
+async function addWork(formData) {
   const response = await fetch("http://localhost:5678/api/works", {
     method: "POST",
     headers: {
@@ -62,13 +78,14 @@ async function addWork() {
     body: formData,
   });
   if (response.ok) {
-    return "success";
+    return response.json();
   } else {
-    return "error";
+    console.log(response);
   }
 }
 
-// Fonction pour l'affichage des travaux::::::::::::::::::::::::::::::::::::::::::::::::::::
+// Fonction pour l'affichage les travaux dans la page d'accueil:::::::::::::::::::::::::::::::::
+
 async function displayWorks(id = "0") {
   // Récupération de l'élément du DOM qui accueillera les travaux:
   const allFigures = document.querySelector(".gallery");
@@ -166,6 +183,7 @@ function createFilterListener() {
 }
 
 // Création de l'affichage en mode édition::::::::::::::::::::::::::::::::::::::::::::::::::::
+
 let token = sessionStorage.getItem("token");
 async function editMode() {
   const loginOrLogout = document.querySelector(".loginOrLogout");
@@ -178,8 +196,7 @@ async function editMode() {
     // Supression de la barre des filtres:
     allFilters.style.display = "none";
 
-    // Changement du lien "Login" en lien "Logout":::::::::::::::::::::::::::::::::::::
-
+    // Changement du lien "Login" en lien "Logout":::::::::::::::::::::::::::::::::::::::::
     loginOrLogout.innerText = "logout";
 
     loginOrLogout.addEventListener("click", () => {
@@ -255,8 +272,6 @@ window.addEventListener("keydown", function (e) {
 
 // Afficher les travaux dans la modal::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
-const submitForm = document.getElementById("buttonModalSubmit");
-const buttonSearchPhoto = document.getElementById("buttonAddPhoto");
 // Fonction pour l'affichage des travaux:
 async function displayWorksModal() {
   // Récupération de l'élément du DOM qui accueillera les travaux:
@@ -309,13 +324,19 @@ async function displayWorksModal() {
     // Ajout des travaux dans la modal:
     submitForm.addEventListener("click", async (e) => {
       e.preventDefault();
+      submitFunc();
 
-      const testAdd = await addWork(work.id);
-      if (submitFunc(true) && testAdd == "success") {
+      const formData = new FormData();
+      formData.append("image", buttonSearchPhoto.files[0]);
+      formData.append("title", addTitleImage.value);
+      formData.append("category", addCategoryImage.value);
+
+      if (addWork(formData)) {
         allWorks.add(work);
-        displayWorks();
-
-        // closeModal();
+        displayWorks(e);
+        resetForm(e);
+      } else {
+        console.log("error");
       }
     });
 
@@ -331,7 +352,8 @@ async function displayWorksModal() {
 }
 
 // Pour le changement de modal::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-const addButtonPhoto = document.querySelector(".buttonModal");
+
+// const addButtonPhoto = document.querySelector(".buttonModal");
 addButtonPhoto.addEventListener("click", function () {
   changeModal(true);
 });
@@ -353,29 +375,16 @@ function changeModal(view) {
   }
 }
 
-// Importation de l'image du projet à rajouter:::::::::::::::::::::::::::::::::::::::::::::::
-
-const addImage = document.getElementById("addPicture");
-const selectFile = buttonSearchPhoto.files[0];
-const errorForm = document.querySelector(".error2");
-
-const addCategoryImage = document.getElementById("category");
-const addTitleImage = document.getElementById("title");
-
-const formData = new FormData();
-formData.append("image", buttonSearchPhoto.files[0]);
-formData.append("title", addTitleImage.value);
-formData.append("category", addCategoryImage.value);
-
+// Pour l'ajout d'une nouvelle photo:
 buttonSearchPhoto.addEventListener("change", async (e) => {
   e.preventDefault();
-  const selectFile = buttonSearchPhoto.files[0];
+
   if (
     selectFile.size > 4 * 1024 * 1024 ||
     (selectFile.type !== "image/png" && selectFile.type !== "image/jpeg")
   ) {
-    errorForm.innerHTML = "Mauvais format de l'image";
-    return;
+    errorForm.innerHTML = "Mauvais format d'image";
+    return false;
   } else {
     if (selectFile) {
       const imgUrl = URL.createObjectURL(selectFile);
@@ -388,24 +397,39 @@ buttonSearchPhoto.addEventListener("change", async (e) => {
 });
 
 // Fonction pour le remplissage du formulaire::::::::::::::::::::::::::::::::::::::::::::::::::
-async function submitFunc() {
-  // e.preventDefault(e);
 
-  console.log(addCategoryImage.value);
-  console.log(addTitleImage.value);
-  console.log(buttonSearchPhoto.files[0]);
+async function submitFunc() {
+  // console.log(addCategoryImage.value);
+  // console.log(addTitleImage.value);
+  // console.log(buttonSearchPhoto.files[0]);
 
   // S'il n'y a pas de titre renseigné: //
   if (addTitleImage.value === "") {
     errorForm.innerHTML = "Veuillez renseigner le titre";
-    return;
+    return false;
   }
+  if (addCategoryImage.value === "default") {
+    errorForm.innerHTML = "Veuillez renseigner la catégorie";
+    return false;
+  }
+  // Changement de couleur du bouton "valider" si le formulaire est rempli:
+  submitForm.style.backgroundColor = "#1D6154";
+}
 
-  if (addTitleImage.value !== "" && addImage !== "") {
-    submitForm.style.backgroundColor = "#1D6154";
-  } else {
-    addImage.value = "";
-    addCategoryImage.value = "";
-    addTitleImage.value = "";
+// Fornction pour réinitialiser le formulaire::::::::::::::::::::::::::::::::::::::::::::::::
+function resetForm() {
+  // e.preventDefault;
+  // console.log(addTitleImage.value);
+  // console.log(addCategoryImage.value);
+  // console.log(addImage);
+  addTitleImage.value = "";
+  addCategoryImage.value = "";
+
+  const imageNone = addImage.querySelector("img");
+  if (imageNone) {
+    imageNone.src = "";
+    selectFile === null;
+
+    console.log(selectFile);
   }
 }

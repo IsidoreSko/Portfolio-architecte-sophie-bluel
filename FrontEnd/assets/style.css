@@ -511,6 +511,12 @@ button, #passwordForgeted {
 	margin-bottom: 20px;
 }
 
+/* Format maximal des image à ajouter: */
+#addPicture img{
+	max-width: 420px;
+	max-height: 169px;
+}
+
 /* Pour les inputs "title" et "category: */
 #title, #category{
 	width: 420px;
