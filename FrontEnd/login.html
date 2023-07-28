@@ -14,23 +14,26 @@
     <link rel="stylesheet" href="./assets/style.css" />
   </head>
   <body>
+    <!-- En-tête de la page: -->
     <header>
-      <h1>Sophie Bluel <span>Architecte d'inteérieur</span></h1>
+      <h1>Sophie Bluel <span>Architecte d'intérieur</span></h1>
       <nav>
         <ul>
-          <li>projets</li>
-          <li>contact</li>
-          <li class="select">login</li>
+          <li><a href="#">projets</a></li>
+          <li><a href="#">contact</a></li>
+          <li id="select">login</li>
           <li>
-            <img
-              class="insta"
-              src="./assets/icons/instagram.png"
-              alt="Instagram"
-            />
+            <a href="#">
+              <img
+                class="insta"
+                src="./assets/icons/instagram.png"
+                alt="Instagram"
+            /></a>
           </li>
         </ul>
       </nav>
     </header>
+    <!-- Formulaire de connection: -->
     <section id="login">
       <h2>Log In</h2>
       <form action="#" method="post" id="form">
@@ -43,6 +46,7 @@
       </form>
       <p id="passwordForgeted">Mot de passe oublier</p>
     </section>
+    <!-- Lien vers le code js: -->
     <script src="./login.js"></script>
   </body>
 </html>

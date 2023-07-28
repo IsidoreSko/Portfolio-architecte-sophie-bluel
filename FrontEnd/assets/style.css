@@ -95,26 +95,35 @@ nav li {
 	
 }
 
-/* Ajout de l'ancre pour le lien "login" ouvrant la page pour se connecter :*/
+/* Ajout de l'ancre pour le lien "login" ouvrant la page pour se connecter: */
 nav a {
 	text-decoration: none;
 	color: black;
 }
 
-/* Sur la page de login, le mot "login" apparaît en gras :*/
-ul .select {
+/* Sur la page de login, le mot "login" apparaît en gras: */
+#select {
 	font-weight: 700;
+	color: black;
 }
 
-/* Pour le logo d'Instagram */
+/* Eviter le "cursor: pointer" pour le mot "login" de la page de login: */
+#select:hover {
+	pointer-events: none;
+}
+
+/* Pour le logo d'Instagram: */ 
 .insta {
 	width: 19.4px;
 	margin-top: 3px;
 }
 
-li:hover {
+/* Pour colorer les liens au survol de la souris: */
+header li:hover,header a:hover {
 	color: #B1663C;
+	cursor: pointer;
 }
+
 #introduction {
 	display: flex;
 	align-items: center;
@@ -161,6 +170,8 @@ li:hover {
 
 .gallery img {
 	width: 100%;
+	height: 555px;
+	object-fit: cover;
 
 }
 #contact, #login {
@@ -253,13 +264,13 @@ button, #passwordForgeted {
 	color: red;
 	display: flex;
 	justify-content: center;
+	margin-top: 10px;
 	margin-bottom: 50px;
 }
 
-/* Concernant les éléments qui se rajout en mode édition: */
+/* Concernant les éléments qui se rajoutent en mode édition:::::::::::::::::::::::::::::::::::: */
 
 /* Au sujet de la "topBar": */
-
 .topBar {
 	display: flex;
 	flex-direction: row;
@@ -270,9 +281,7 @@ button, #passwordForgeted {
 	background-color:black ;
 }
 
-
-
-/* Pour le bouton "publier les changements" */
+/* Pour le bouton "publier les changements": */
 .publish {
 	width: auto;
 	height: 38px;
@@ -292,7 +301,7 @@ button, #passwordForgeted {
 }
 
 
-/* Pour le texte "Mode édition": */
+/* Pour le texte "mode édition": */
 .edit {
 	font-family: 'Work Sans';
 	font-weight: 400;
@@ -308,30 +317,30 @@ button, #passwordForgeted {
 
 /* Au sujet des deux icônes + textes "modifier": */
 
-.changeOne {
+#changeOne {
 	position: absolute;
 	left: 12%;
 	top: 545px;
 }
 
-.changeTwo {
+#changeTwo {
 	position: absolute;
 	right: 34%;
 	top:590px;
 }
 
-.changeThree {
+#changeThree {
 	margin-bottom: 30px;
 }
 
 
-.changeOne, .changeTwo, .changeThree {
+#changeOne, #changeTwo, #changeThree {
 	display: flex;
 	flex-direction: row;
 	gap: 10px;
 }
 
-/* Pour le texte "modifier */
+/* Pour le texte "modifier": */
 .mode {
 	font-family: "Work Sans";
 	font-weight: 400;
@@ -340,12 +349,17 @@ button, #passwordForgeted {
 	color: black;
 }
 
-/* Pour les icône "modifier" */
-.changeOne .fa-edit, .changeTwo .fa-edit {
+/* Pas de "cursou:pointer" sur le titre "Mode édition: */
+#notCursor {
+	pointer-events: none;
+}
+
+/* Pour les icônes "modifier": */
+#changeOne .fa-edit, #changeTwo .fa-edit {
 	font-size: 18px;
 }
 
-/* Au sujet des "modals" ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: */
+/* Au sujet de la "modale" ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: */
 
 #modalAll {
 	position: fixed;
@@ -362,13 +376,12 @@ button, #passwordForgeted {
 	animation: appearance 0.5s both;
 }
 
-/* Concernant l'affichage des modals: */
+/* Concernant l'affichage des deux parties de la modale: */
 .modalWrapper .modal1, .modalWrapper .modal2{
 	overflow: auto;
 	width: 630px;
 	max-width: calc(100vw - 20px);
 	max-height : calc(100vh - 20px);
-	/* padding: 35px auto; */
 	background-color: #FFF;
 	border-radius: 10px;
 	margin-top: 50px;
@@ -379,7 +392,7 @@ button, #passwordForgeted {
 	animation: presence 1.5s both;	
 }
 
-/* Animation à la fermeture de la modal: */
+/* Animation à la fermeture de la modale: */
 #modalAll[aria-hidden="true"]{	
 	animation-name: appearanceReverse;
 }
@@ -388,7 +401,7 @@ button, #passwordForgeted {
 	animation-name: presenceReverse;
 }
 
-/* Pour le titre des modal: */
+/* Pour le titre des deux parties de la modale: */
 .titleModal {
 	font-family: "Work Sans";
 	font-weight: 400;
@@ -399,7 +412,7 @@ button, #passwordForgeted {
 	margin-top: 20px;
 }
 
-/* Pour l'icône "croix" de la modal: */
+/* Pour l'icône "croix" de la modale: */
 .modalWrapper .cross, .modalWrapper .cross2{
 	margin-left: 545px;
 	margin-top: 20px;
@@ -408,7 +421,7 @@ button, #passwordForgeted {
 	z-index: 1;
 }
 
-/* Bouton de la modal: */
+/* Bouton de la modale: */
 .buttonModal {
 	width: 237px;
 	height: 36px;
@@ -427,7 +440,7 @@ button, #passwordForgeted {
 	border: none;
 }
 
-/*Concernant la phrase "Supprimer la galerie" */
+/*Concernant la phrase "Supprimer la galerie": */
 .modal1 p {
 	font-family: 'Syne';
 	font-weight: 400;
@@ -439,7 +452,7 @@ button, #passwordForgeted {
 	margin-bottom: 30px;
 }
 
-/* Au sujet de la galerie de travaux dans la modal::::::::::::::::::::::::::::::::::::: */
+/* Au sujet de la galerie de travaux dans la modale ::::::::::::::::::::::::::::::::::::: */
 .galleryModal {
 	width: 80%;
 	display: flex;
@@ -462,7 +475,7 @@ button, #passwordForgeted {
 	font-weight: 400;
 }
 
-/* au sujet des icônes "supprimer": */
+/* Au sujet des icônes "supprimer": */
 .figureModal .fa-trash-can {
 	color: #FFF;
 	background-color: black;
@@ -488,9 +501,9 @@ button, #passwordForgeted {
 	left: 8px;
 }
 
-/* Ausujet dela 2ème Modal pour ajouter un travail::::::::::::::::::::::::::::::::::::::::::: */
+/* Au sujet de la modale pour ajouter les travaux::::::::::::::::::::::::::::::::::::::::::: */
 
-/* Dispositiondel'affichage de la modal: */
+/* Disposition de l'affichage de la modale: */
 .viewModal{
 	display: flex;
 	flex-direction: column;
@@ -498,7 +511,7 @@ button, #passwordForgeted {
 	align-items: center;
 }
 
-/* Partie permettant d'insérer la photo */
+/* Partie permettant d'insérer la photo: */
 #addPicture {
 	width: 420px;
 	height: 169px;
@@ -511,13 +524,29 @@ button, #passwordForgeted {
 	margin-bottom: 20px;
 }
 
-/* Format maximal des image à ajouter: */
+#formPicture{
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+/* Concernant la croix pour effacer la photo ajoutée: */
+.cross3{
+	position: absolute;
+	left: 480px;
+	top: 130px;
+	font-size: large;
+	cursor: pointer;
+}
+
+/* Format maximal des images à ajouter: */
 #addPicture img{
 	max-width: 420px;
 	max-height: 169px;
 }
 
-/* Pour les inputs "title" et "category: */
+/* Pour les inputs "title" et "category": */
 #title, #category{
 	width: 420px;
 	height: 51px;
@@ -526,7 +555,7 @@ button, #passwordForgeted {
 	border: none;
 }
 
-/* Pour les titres des inputs: */
+/* Pour les titres du formulaire: */
 .title {
 	color: rgba(61, 61, 61, 1);
 	font-family: Work Sans;
@@ -544,8 +573,17 @@ button, #passwordForgeted {
 #uploadForm{
 	display: flex;
 	flex-direction: column;
-	padding-bottom: 50px;
-	border-bottom: #B3B3B3 solid 1.5px;
+}
+
+/* Concernant la "div" contenant le bouton "valider" + ligne grise: */
+.validate {
+	margin-top: 47px;
+	padding-top: 32px;
+	border-top: #B3B3B3 solid 1.5px;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
 }
 
 /* Au sujet du bouton "valider": */
@@ -556,8 +594,6 @@ button, #passwordForgeted {
 	font-weight: 700;
 	color: white;
 	background-color: rgba(167, 167, 167, 1);
-	margin-top : 2.9em;
-	margin-bottom: 10px;
 	text-align: center;
 	border-radius: 60px;
 	cursor: pointer;
@@ -566,24 +602,21 @@ button, #passwordForgeted {
 	align-items: center;
 	padding: 17px;
 	border: none;
-	display: flex;
+	border-bottom: #B3B3B3 solid 1.5px;
 }
 
 /* Au sujet de l'icône "image": */
-.viewModal .fa-image {
+#formPicture .fa-image {
 	width: 58px;
 	height: 58px;
 	font-size: 58px;
 	color: rgba(185, 197, 204, 1);
-	display: flex;
 }
 
 /* Concernant le bouton d'ajout de photo: */
-.buttonAddPhotoAspect{
+#buttonAddPhotoAspect{
 	width: 173px;
 	height: 36px;
-	/* top: 881px;
-	left: 633px; */
 	border-radius: 50px;
 	border: none;
 	background: rgba(203, 214, 220, 1);
@@ -593,7 +626,6 @@ button, #passwordForgeted {
 	font-size: 14px;
 	font-weight: 500;
 	line-height: 16px;
-	/* text-align: center; */
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -602,7 +634,7 @@ button, #passwordForgeted {
 	cursor: pointer;
 }
 
-/* Au sujet des informations concernant la phot à rajouter: */
+/* Au sujet des informations concernant la photo à rajouter: */
 .pictureFormat {
 	font-family: Work Sans;
 	font-size: 10px;
@@ -610,7 +642,6 @@ button, #passwordForgeted {
 	line-height: 12px;
 	letter-spacing: 0em;
 	text-align: center;
-
 }
 
 /* Concernant l'icône flèche de retour vers la galerie: */
@@ -622,8 +653,7 @@ button, #passwordForgeted {
 	cursor: pointer;
 }
 
-/* Ajout d'une animation pour l'apparition de la moal à son ouverture:::::::::::::::::::::: */
- 
+/* Ajout d'une animation pour l'apparition de la modale, à son ouverture:::::::::::::::::::::: */
 @keyframes appearance {
 	from {opacity:0;}
 	to {opacity: 1;}
@@ -638,8 +668,7 @@ button, #passwordForgeted {
 	}
   }
 
-  /* Ajout d'une animation pour la fermeture de la moal à son ouverture: */
-
+  /* Ajout d'une animation pour la fermeture de la modale: */
   @keyframes appearanceReverse {
 	from {opacity:1;}
 	to {opacity: 0;}

@@ -20,47 +20,49 @@
     <meta name="description" content="" />
     <link rel="stylesheet" href="./assets/style.css" />
   </head>
+
   <body>
-    <!-- Rajout d'une "div" pour la "topBar" qui apparait en mode édition:-->
+    <!-- Rajout d'une "div" pour la "topBar" qui apparaît en mode édition:-->
     <div class="topBar">
-      <a href="#" class="mode"
+      <a href="#" class="mode" id="notCursor"
         ><i class="fas fa-light fa-edit"></i>
         <span class="edit">Mode édition</span></a
       >
       <button class="publish">publier les changements</button>
     </div>
+
     <header>
-      <h1>Sophie Bluel <span>Architecte d'inteérieur</span></h1>
+      <h1>Sophie Bluel <span>Architecte d'intérieur</span></h1>
       <nav>
         <ul>
-          <a href="#"><li>projets</li></a>
-          <a href="#"><li>contact</li></a>
-          <!-- Rajout d'un "class" sur le lien: -->
-          <a href="./login.html"><li class="loginOrLogout">login</li></a>
-          <a href="#"
-            ><li>
+          <li><a href="#">projets</a></li>
+          <li><a href="#">contact</a></li>
+          <!-- Rajout d'une "class" sur le lien pour changer l'intitulé: -->
+          <li><a href="./login.html" class="loginOrLogout">login</a></li>
+          <li>
+            <a href="#">
               <img
                 class="insta"
                 src="./assets/icons/instagram.png"
                 alt="Instagram"
-              /></li
-          ></a>
+            /></a>
+          </li>
         </ul>
       </nav>
     </header>
+
     <main>
-      <!-- Section ajout des modals: -->
-      <aside
+      <!-- Section d'ajout de la modale::::::::::::::::::::::::::::::::::::::::::::::::::::::: -->
+      <div
         id="modalAll"
         class="modal"
         aria-hidden="true"
         role="dialog"
         aria-modal="false"
-        aria-labelledby="titleModal"
         style="display: none"
       >
         <div class="js-modal-stop modalWrapper">
-          <!-- 1ère Modal "supression" de travaux:-->
+          <!-- 1ère partie pour la suppression des travaux: -->
           <div class="modal1">
             <span class="cross"><i class="fa-solid fa-x"></i></span>
             <h2 class="titleModal">Galerie photos</h2>
@@ -68,7 +70,7 @@
             <button class="buttonModal">Ajouter une photo</button>
             <p>Supprimer la galerie</p>
           </div>
-          <!-- 2ème Modal "ajout" de travaux: -->
+          <!-- 2ème partie pour l'ajout des travaux: -->
           <div class="modal2">
             <span class="cross2"><i class="fa-solid fa-x"></i></span>
             <span class="arrow"
@@ -76,51 +78,58 @@
             ></span>
             <div class="viewModal">
               <h2 class="titleModal">Ajout photo</h2>
-
+              <!-- Formulaire pour l'ajout de projet: -->
+              <!-- Partie pour l'ajout de l'image: -->
               <div id="addPicture">
-                <label for="buttonAddPhoto"
-                  ><i class="fa-regular fa-image"></i
-                ></label>
-                <label class="buttonAddPhotoAspect" for="buttonAddPhoto"
-                  >+ Ajouter photo
-                  <input
-                    type="file"
-                    id="buttonAddPhoto"
-                    accept="image/png,image/jpg,image/jpeg"
-                    style="display: none"
-                  />
-                </label>
-                <label class="pictureFormat">jpg.png : 4mo max</label>
-                <!-- <div id="imageOverview"></div> -->
+                <span class="cross3"><i class="fa-solid fa-x"></i></span>
+                <div id="formPicture">
+                  <label for="buttonAddPhoto"
+                    ><i class="fa-regular fa-image"></i
+                  ></label>
+                  <label id="buttonAddPhotoAspect" for="buttonAddPhoto"
+                    >+ Ajouter photo
+                    <input
+                      type="file"
+                      id="buttonAddPhoto"
+                      accept="image/png,image/jpg,image/jpeg"
+                      style="display: none"
+                    />
+                  </label>
+                  <label class="pictureFormat">jpg.png : 4mo max</label>
+                </div>
+                <div id="viewPicture"></div>
               </div>
-
-              <div class="view"></div>
+              <!-- Partie pour l'ajout du titre et de la catégorie: -->
               <form id="uploadForm" enctype="multipart/form-data">
                 <label class="title" for="title">Titre</label>
                 <input type="text" id="title" name="title" />
                 <label class="title" for="category">Catégorie</label>
 
                 <select id="category" name="category">
-                  <option value="default"></option>
+                  <option value="default">&nbsp;</option>
                   <option value="1">Objets</option>
                   <option value="2">Appartements</option>
                   <option value="3">Hotels & Restaurants</option>
                 </select>
+                <!-- Bouton de validation: -->
+                <div class="validate">
+                  <button id="buttonModalSubmit" type="submit">Valider</button>
+                </div>
               </form>
-              <button id="buttonModalSubmit" type="submit">Valider</button>
+              <!-- Partie pour les messages d'erreur: -->
               <p class="error2"></p>
             </div>
           </div>
         </div>
-      </aside>
+      </div>
 
-      <section id="introduction">
+      <div id="introduction">
         <figure>
           <img src="./assets/images/sophie-bluel.png" alt="" />
         </figure>
         <article>
-          <!-- Rajout d'une "div" pour l'acces à la modification en mode édition:-->
-          <div class="changeThree">
+          <!-- Rajout d'une "div" pour l'acces à la modification en mode édition: -->
+          <div id="changeThree">
             <a href="#" class="mode"
               ><i class="fas fa-light fa-edit"></i>modifier</a
             >
@@ -144,17 +153,19 @@
             : architecte DPLG, décorateur(trice)
           </p>
         </article>
+
         <!-- Rajout d'une "div" pour l'acces à la modification en mode édition:-->
-        <div class="changeOne">
+        <div id="changeOne">
           <a href="#" class="mode"
             ><i class="fas fa-light fa-edit"></i>modifier</a
           >
         </div>
-      </section>
+      </div>
+
       <section id="portfolio">
         <h2>Mes Projets</h2>
         <!-- Rajout d'une "div" pour l'acces à la modification en mode édition:-->
-        <div class="changeTwo">
+        <div id="changeTwo">
           <a href="#modalAll" class="mode js-modal"
             ><i class="fas fa-light fa-edit"></i>modifier</a
           >
@@ -163,6 +174,7 @@
         <div class="allFilters"></div>
         <div class="gallery"></div>
       </section>
+
       <section id="contact">
         <h2>Contact</h2>
         <p>Vous avez un projet ? Discutons-en !</p>
@@ -184,6 +196,7 @@
         </ul>
       </nav>
     </footer>
+    <!-- Lien vers le code js: -->
     <script src="./index.js"></script>
   </body>
 </html>

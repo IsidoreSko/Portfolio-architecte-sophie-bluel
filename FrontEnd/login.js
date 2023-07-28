@@ -30,7 +30,7 @@ form.addEventListener("submit", async (e) => {
     const token = data.token;
     // Stockage du "token" dans le "localStorage":
     sessionStorage.setItem("token", token);
-    // On redirige vers la page d'accueil:
+    // Redirection vers la page d'accueil:
     window.location.href = "./index.html";
   } else {
     // Sinon apparition du message d'erreur:
